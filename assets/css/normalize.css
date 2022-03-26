@@ -11,6 +11,7 @@ html {
 /*** Remove the margin in all browsers.*/
 body {
 	margin: 0;
+	padding: 0;
 }
 /*** Render the `main` element consistently in IE.*/
 main {
@@ -19,7 +20,7 @@ main {
 /*** Correct the font size and margin on `h1` elements within `section` and* `article` contexts in Chrome, Firefox, and Safari.*/
 h1 {
 	font-size: 2em;
-	margin: 0.67em 0;
+	margin: 0;
 }
 /* Grouping content========================================================================== */
 /*** 1. Add the correct box sizing in Firefox.* 2. Show the overflow in Edge and IE.*/
@@ -100,7 +101,7 @@ textarea {
 	/* 1 */
 	font-size: 100%;
 	/* 1 */
-	line-height: 1.15;
+	line-height: 1;
 	/* 1 */
 	margin: 0;
 	/* 2 */

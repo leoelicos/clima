@@ -1,0 +1,100 @@
+:root {
+	--header-bgcolor: #855fba;
+	--header-titlecolor: #ffffff;
+}
+
+.page-header-title {
+	margin: 1vh 1vw;
+	flex: 0;
+}
+.page-header-title h1 {
+	font-size: calc(max(18px, 2vw));
+	font-weight: normal;
+	letter-spacing: calc(max(1px, 0.1vw));
+	white-space: nowrap;
+}
+.page-header-fieldset {
+	font-size: 12px;
+	font-weight: bold;
+	height: 100%;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 1vh 1vw;
+}
+
+.page-header-field-location {
+	margin: 1vh 1vw;
+	height: 100%;
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+}
+.page-header-field-location-icon {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.page-header-field-location-icon img {
+	width: 3.5vh;
+}
+.page-header-field-location-label {
+	margin: 0 0.4vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(max(12px, 1.5vw));
+	font-weight: bold;
+}
+.page-header-field-location-search {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+.page-header-field-location-search input {
+	border-radius: 4vh;
+	padding: 0.5vh;
+	/* height: 100%; */
+	border: 0;
+	line-height: 1;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(max(12px, 1vh));
+	font-weight: bold;
+	width: calc(max(300px, 3vw));
+	font-size: calc(max(12px, 1.5vw));
+	font-weight: bold;
+}
+.page-header-field-location-search input:focus-visible {
+	outline: none;
+}
+.page-header-field-location-search input::placeholder {
+	margin: 0;
+	line-height: 1;
+	font-size: calc(max(12px, 1.5vw));
+	font-weight: bold;
+}
+.page-header-field-time {
+	color: #353d37;
+	background-color: rgba(255, 255, 255, 50%);
+	border-radius: 4vh;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(max(12px, 1.5vw));
+	font-weight: bold;
+	padding: 0.5vh 1vw;
+	white-space: nowrap;
+
+	margin: 1vh 1vw;
+}

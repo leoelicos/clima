@@ -5,10 +5,363 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./assets/css/normalize.css" />
 		<link rel="stylesheet" href="./assets/css/style.css" />
+		<link rel="stylesheet" href="./assets/css/header.css" />
+		<link rel="stylesheet" href="./assets/css/today.css" />
+		<link rel="stylesheet" href="./assets/css/future.css" />
 		<title>WWAAG</title>
 	</head>
 	<body>
-		<h1>WORLDWIDE WEATHER AT A GLANCE</h1>
+		<header class="page-header">
+			<div class="page-header-title">
+				<h1>WORLDWIDE WEATHER AT A GLANCE</h1>
+			</div>
+			<div class="page-header-fieldset">
+				<div class="page-header-field-location">
+					<div class="page-header-field-location-icon">
+						<img src="./assets/images/globe.ico" alt="" />
+					</div>
+					<div class="page-header-field-location-search"><input type="text" placeholder="TYPE OR SELECT LOCATION" /></div>
+				</div>
+				<div class="page-header-field-time">LOCAL TIME 11:19 PM</div>
+			</div>
+		</header>
+		<main>
+			<section class="today">
+				<div class="today-title">
+					<p>TODAY: SUNDAY</p>
+					<p>26 MAR</p>
+				</div>
+				<div class="today-info">
+					<article class="future">
+						<div class="future-title">
+							<p>MONDAY</p>
+							<p>27 MAR</p>
+						</div>
+						<div class="future-info">
+							<div class="future-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
+							<div class="future-info-panel">
+								TEMP <img src="./assets/images/temp.png" alt="" />
+								<div class="future-info-panel-temperature">15°C</div>
+								<div class="balls">
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+								</div>
+							</div>
+							<div class="future-info-panel">
+								WIND <img src="./assets/images/wind.png" alt="" />
+								<div class="future-info-panel-temperature">1kph</div>
+								<div class="balls">
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+								</div>
+							</div>
+							<div class="future-info-panel">
+								UV <img src="./assets/images/uv.png" alt="" />
+								<div class="future-info-panel-temperature">0.47</div>
+								<div class="balls">
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+								</div>
+							</div>
+							<div class="future-info-panel">
+								HUM <img src="./assets/images/water.png" alt="" />
+								<div class="future-info-panel-temperature">15°C</div>
+								<div class="balls">
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+									<div class="ball"></div>
+								</div>
+							</div>
+						</div>
+					</article>
+					<div class="today-info-graph">
+						<div class="today-info-graph-menu"><span class="graph-options">TEMP</span>|<span class="graph-options">WIND</span>|<span class="graph-options">UV</span>|<span class="graph-options">HUM</span></div>
+						<div class="today-info-graph-graph"></div>
+					</div>
+				</div>
+			</section>
+			<div class="futures-title">
+				<p>5-day forecast</p>
+			</div>
+			<section class="futures">
+				<article class="future">
+					<div class="future-title">
+						<p>MONDAY</p>
+						<p>27 MAR</p>
+					</div>
+					<div class="future-info">
+						<div class="future-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
+						<div class="future-info-panel">
+							TEMP <img src="./assets/images/temp.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							WIND <img src="./assets/images/wind.png" alt="" />
+							<div class="future-info-panel-temperature">1kph</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							UV <img src="./assets/images/uv.png" alt="" />
+							<div class="future-info-panel-temperature">0.47</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							HUM <img src="./assets/images/water.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+					</div>
+				</article>
+				<article class="future">
+					<div class="future-title">
+						<p>TUESDAY</p>
+						<p>28 MAR</p>
+					</div>
+					<div class="future-info">
+						<div class="future-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
+						<div class="future-info-panel">
+							TEMP <img src="./assets/images/temp.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							WIND <img src="./assets/images/wind.png" alt="" />
+							<div class="future-info-panel-temperature">1kph</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							UV <img src="./assets/images/uv.png" alt="" />
+							<div class="future-info-panel-temperature">0.47</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							HUM <img src="./assets/images/water.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+					</div>
+				</article>
+				<article class="future">
+					<div class="future-title">
+						<p>WEDNESDAY</p>
+						<p>29 MAR</p>
+					</div>
+					<div class="future-info">
+						<div class="future-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
+						<div class="future-info-panel">
+							TEMP <img src="./assets/images/temp.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							WIND <img src="./assets/images/wind.png" alt="" />
+							<div class="future-info-panel-temperature">1kph</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							UV <img src="./assets/images/uv.png" alt="" />
+							<div class="future-info-panel-temperature">0.47</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							HUM <img src="./assets/images/water.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+					</div>
+				</article>
+				<article class="future">
+					<div class="future-title">
+						<p>THURSDAY</p>
+						<p>30 MAR</p>
+					</div>
+					<div class="future-info">
+						<div class="future-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
+						<div class="future-info-panel">
+							TEMP <img src="./assets/images/temp.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							WIND <img src="./assets/images/wind.png" alt="" />
+							<div class="future-info-panel-temperature">1kph</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							UV <img src="./assets/images/uv.png" alt="" />
+							<div class="future-info-panel-temperature">0.47</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							HUM <img src="./assets/images/water.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+					</div>
+				</article>
+				<article class="future">
+					<div class="future-title">
+						<p>FRIDAY</p>
+						<p>31 MAR</p>
+					</div>
+					<div class="future-info">
+						<div class="future-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
+						<div class="future-info-panel">
+							TEMP <img src="./assets/images/temp.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							WIND <img src="./assets/images/wind.png" alt="" />
+							<div class="future-info-panel-temperature">1kph</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							UV <img src="./assets/images/uv.png" alt="" />
+							<div class="future-info-panel-temperature">0.47</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+						<div class="future-info-panel">
+							HUM <img src="./assets/images/water.png" alt="" />
+							<div class="future-info-panel-temperature">15°C</div>
+							<div class="balls">
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+								<div class="ball"></div>
+							</div>
+						</div>
+					</div>
+				</article>
+			</section>
+		</main>
 
 		<script src="./assets/js/script.js"></script>
 	</body>
