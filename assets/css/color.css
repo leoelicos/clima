@@ -1,10 +1,14 @@
 /* This document contains CSS property literals for all colors used in the Weather Dashboard */
 
 :root {
-	--body: #513d6e;
 	--primary: #a99eba;
-	--secondary: #a99eba;
-	--tertiary: rgba(255, 255, 255, 10%);
+	--secondary: #513d6e;
+	--tertiary: #cbc5d4;
+	--quaternary: #63517d;
+	--primary-complement: #333b35;
+	/* --secondary-complement: #ffffff; */
+	--tertiary-complement: #101210;
+	--quaternary-complement: #ffffff;
 
 	--accent-darkest: rgba(255, 255, 255, 10%);
 	--accent-darkest-text: #ffffff;
@@ -15,7 +19,7 @@
 	--accent-lighter: rgba(255, 255, 255, 70%);
 	--accent-lighter-text: #333b35;
 
-	--header-bgcolor: var(--accent-lighter);
+	--header-bgcolor: var(--tertiary);
 	--header-titlecolor: var(--accent-lighter-text);
 
 	--graph: var(--accent-darker);

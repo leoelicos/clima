@@ -1,20 +1,35 @@
 /* container for all the .today elements */
-.today .card {
-	height: 100%;
-	width: 100%;
+.card-today {
 	flex: 1;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	/* border: 1px dotted orange; */
 }
 
-.today-split {
-	/* layout - grid */
-	display: grid;
-	align-items: center;
-	justify-content: space-evenly;
-	grid-template-columns: 1fr 2fr;
+.card-split {
+	/* layout */
 	flex: 1;
-	/* Appearance */
+	width: 100%;
+
+	/* layout - grid */
+	display: flex;
+	align-items: stretch;
+	justify-content: space-evenly;
+
+	/* text */
 	font-size: calc(max(12px, 1vh));
 
+	/* Appearance */
 	background-color: var(--graph);
-	padding: 1vh 0.5vw;
+}
+
+.today .card {
+	/* border: 1px solid green; */
+	width: 100%;
+}
+
+.today .graph-container {
+	flex: 1;
+	/* border: 1px solid yellow; */
 }

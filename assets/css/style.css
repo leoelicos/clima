@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body {
-	background-color: var(--body);
+	background-color: var(--secondary);
 	font-family: 'Roboto', sans-serif;
 	display: flex;
 	flex-direction: column;

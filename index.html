@@ -32,13 +32,13 @@
 			<div class="today">
 				<div class="cards-title">Today</div>
 
-				<section class="card">
+				<section class="card-today">
 					<div class="card-title">Sun | 27 Mar</div>
 
-					<div class="today-split">
+					<div class="card-split">
 						<article class="card">
 							<div class="card-info">
-								<div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
+								<!-- <div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div> -->
 								<div class="card-info-panel-label">TEMP</div>
 								<div class="card-info-panel-numerical">15°C</div>
 								<div class="card-info-panel-icon"><img src="./assets/images/temp.png" alt="" /></div>
@@ -48,6 +48,18 @@
 									<div class="ball"></div>
 									<div class="ball"></div>
 									<div class="ball"></div>
+								</div>
+								<div class="temperature-graph" id="temperature-graph">
+									<svg id="svg1" xmlns="http://www.w3.org/2000/svg" width="500" height="80">
+										<defs>
+											<linearGradient id="temperatureGradient" x1="0" x2="0" y1="0" y2="1">
+												<stop offset="0%" stop-color="white" />
+												<stop offset="50%" stop-color="white" stop-opacity="1" />
+												<stop offset="100%" stop-color="white" stop-opacity="0" />
+											</linearGradient>
+										</defs>
+										<rect width="100%" height="100%" fill="#a99eba" />
+									</svg>
 								</div>
 								<div class="card-info-panel-label">WIND</div>
 								<div class="card-info-panel-numerical">1kph</div>
@@ -59,6 +71,18 @@
 									<div class="ball"></div>
 									<div class="ball"></div>
 								</div>
+								<div class="wind-graph" id="wind-graph">
+									<svg id="svg2" xmlns="http://www.w3.org/2000/svg" width="500" height="80">
+										<defs>
+											<linearGradient id="windGradient" x1="0" x2="0" y1="0" y2="1">
+												<stop offset="0%" stop-color="white" />
+												<stop offset="50%" stop-color="white" stop-opacity="1" />
+												<stop offset="100%" stop-color="white" stop-opacity="0" />
+											</linearGradient>
+										</defs>
+										<rect width="100%" height="100%" fill="#a99eba" />
+									</svg>
+								</div>
 								<div class="card-info-panel-label">UV</div>
 								<div class="card-info-panel-numerical">0.47</div>
 								<div class="card-info-panel-icon"><img src="./assets/images/uv.png" alt="" /></div>
@@ -68,6 +92,18 @@
 									<div class="ball"></div>
 									<div class="ball"></div>
 									<div class="ball"></div>
+								</div>
+								<div class="uv-graph" id="uv-graph">
+									<svg id="svg3" xmlns="http://www.w3.org/2000/svg" width="500" height="80">
+										<defs>
+											<linearGradient id="uvGradient" x1="0" x2="0" y1="0" y2="1">
+												<stop offset="0%" stop-color="white" />
+												<stop offset="50%" stop-color="white" stop-opacity="1" />
+												<stop offset="100%" stop-color="white" stop-opacity="0" />
+											</linearGradient>
+										</defs>
+										<rect width="100%" height="100%" fill="#a99eba" />
+									</svg>
 								</div>
 								<div class="card-info-panel-label">HUM</div>
 								<div class="card-info-panel-numerical">15°C</div>
@@ -79,13 +115,23 @@
 									<div class="ball"></div>
 									<div class="ball"></div>
 								</div>
+								<div class="humidity-graph" id="humidity-graph">
+									<svg id="svg4" xmlns="http://www.w3.org/2000/svg" width="500" height="80">
+										<defs>
+											<linearGradient id="humidityGradient" x1="0" x2="0" y1="0" y2="1">
+												<stop offset="0%" stop-color="white" />
+												<stop offset="50%" stop-color="white" stop-opacity="1" />
+												<stop offset="100%" stop-color="white" stop-opacity="0" />
+											</linearGradient>
+										</defs>
+										<rect width="100%" height="100%" fill="#a99eba" />
+									</svg>
+								</div>
 							</div>
 						</article>
 						<div class="graph-container">
-							<div class="graph-menu"><span class="graph-options active">TEMP</span><span class="graph-options-divider">|</span><span class="graph-options">WIND</span><span class="graph-options-divider">|</span><span class="graph-options">UV</span><span class="graph-options-divider">|</span><span class="graph-options">HUM</span></div>
-							<div class="graph">
-								<canvas class="canvas" id="canvas"></canvas>
-							</div>
+							<!-- use this for small screens -->
+							<!-- <div class="graph-menu"><span class="graph-options active">TEMP</span><span class="graph-options-divider">|</span><span class="graph-options">WIND</span><span class="graph-options-divider">|</span><span class="graph-options">UV</span><span class="graph-options-divider">|</span><span class="graph-options">HUM</span></div> -->
 						</div>
 					</div>
 				</section>
@@ -329,5 +375,7 @@
 		</main>
 
 		<script src="./assets/js/script.js"></script>
+		<script src="./assets/js/line.js"></script>
+		<script src="./assets/js/graph.js"></script>
 	</body>
 </html>
