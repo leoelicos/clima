@@ -1,0 +1,123 @@
+/* This document contains css for 5-day forecast area */
+
+:root {
+	/* 
+	"5-day forecast" */
+	--card-panel-sectiontitle-bgcolor: var(--accent-darker);
+	--card-panel-sectiontitle-color: var(--accent-darker-text);
+	/* 
+	Mon | 28 Mar */
+	--card-panel-title-bgcolor: var(--accent-lighter);
+	--card-panel-title-color: var(--accent-lighter-text);
+	/* 
+	TEMP WIND UV HUM */
+	--card-panel-info-bgcolor: var(--accent-darker);
+	--card-panel-info-color: var(--accent-darker-text);
+}
+
+.cards-title {
+	/* '5-day forecast */
+	background-color: var(--accent-darkest);
+	color: var(--accent-darkest-text);
+	border-radius: 30px;
+	padding: 0.7vh 0 0.4vh;
+	margin-bottom: 1vh;
+
+	font-weight: bold;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.cards {
+	/* container for all the card cards */
+	/* layout */
+
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	column-gap: 1vw;
+	align-items: stretch;
+	justify-content: center;
+	flex: 1;
+}
+
+.card {
+	/* each card card */
+	/* layout */
+	display: flex;
+	flex-direction: column;
+	border-radius: 30px;
+	width: 100%;
+}
+.card-title {
+	/* Layout - flex*/
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/* Layout - box */
+	padding: 1vh 0 0.6vh 0;
+	/* Text */
+	font-size: calc(max(16px, 1vh));
+	font-weight: bold;
+	color: #101210;
+	/* Appearance */
+
+	background-color: var(--card-panel-title-bgcolor);
+	border-radius: 30px 30px 0 0;
+}
+.card-title p {
+	line-height: 1;
+}
+
+/* grid */
+.card-info {
+	/* Appearance */
+	background-color: var(--card-panel-info-bgcolor);
+	font-size: calc(max(12px, 1vh));
+	flex: 1;
+	padding: 1vh 0.5vw;
+	color: #101210;
+	font-weight: bold;
+	line-height: 1;
+
+	/* layout - grid */
+	display: grid;
+	align-items: center;
+	justify-content: space-evenly;
+	grid-template-columns: repeat(4, auto);
+	grid-template-rows: repeat(5, auto);
+	gap: 1vh 0;
+	height: 100%;
+}
+
+.card-info-icon {
+	grid-column: 1/5;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.card-info-icon img {
+	width: 8vh;
+}
+
+/* weather stats */
+.card-info-panel-label {
+}
+.card-info-panel-numerical {
+}
+.card-info-panel-icon {
+	text-align: center;
+}
+.card-info-panel-graphical {
+	display: flex;
+}
+.ball {
+	background-color: white;
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	margin-left: 1px;
+}

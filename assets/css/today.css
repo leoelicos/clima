@@ -1,54 +1,20 @@
-.today {
-	--today-title-panel-color: #646eb3;
-	background-color: var(--today-title-panel-color);
-	border: 4px solid rgba(255, 255, 255, 50%);
-
-	border-radius: 30px;
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	justify-content: center;
-	font-size: calc(max(12px, 1vh));
-
-	margin: 1vh 1vw;
+/* container for all the .today elements */
+.today .card {
+	height: 100%;
+	width: 100%;
+	flex: 1;
 }
 
-.today-title {
-	background-color: rgba(255, 255, 255, 50%);
-	border-radius: 30px;
-
-	margin: 0.6rem;
-	padding: 0.6rem;
-
-	color: #353d37;
-	font-weight: bold;
-	display: flex;
-	flex-direction: column;
+.today-split {
+	/* layout - grid */
+	display: grid;
 	align-items: center;
 	justify-content: space-evenly;
-	height: 3vh;
-}
-.today-title p {
-	line-height: 1;
-}
-
-.today-info {
-	background-color: transparent;
-
-	padding: 0 1rem 1vh 1rem;
-
-	display: flex;
-	align-items: stretch;
-}
-
-.today-info-card {
+	grid-template-columns: 1fr 2fr;
 	flex: 1;
-	border: 1px dotted white;
-}
-.today-info-graph {
-	flex: 4;
-}
+	/* Appearance */
+	font-size: calc(max(12px, 1vh));
 
-.graph-options {
-	color: white;
+	background-color: var(--graph);
+	padding: 1vh 0.5vw;
 }

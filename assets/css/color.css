@@ -1,0 +1,23 @@
+/* This document contains CSS property literals for all colors used in the Weather Dashboard */
+
+:root {
+	--body: #513d6e;
+	--primary: #a99eba;
+	--secondary: #a99eba;
+	--tertiary: rgba(255, 255, 255, 10%);
+
+	--accent-darkest: rgba(255, 255, 255, 10%);
+	--accent-darkest-text: #ffffff;
+
+	--accent-darker: #a99eba;
+	--accent-darker-text: #313833;
+
+	--accent-lighter: rgba(255, 255, 255, 70%);
+	--accent-lighter-text: #333b35;
+
+	--header-bgcolor: var(--accent-lighter);
+	--header-titlecolor: var(--accent-lighter-text);
+
+	--graph: var(--accent-darker);
+	--graph-text: #ffc745;
+}

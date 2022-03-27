@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-:root {
-	--body-bg-color: #513d6e;
-}
-
 body {
-	background-color: var(--body-bg-color);
+	background-color: var(--body);
 	font-family: 'Roboto', sans-serif;
 	display: flex;
 	flex-direction: column;
@@ -29,15 +25,21 @@ header {
 }
 
 main {
-	height: 90vh;
-	width: 100vw;
-}
-
-p {
-	margin: 0;
-	padding: 0;
+	height: 88vh;
+	width: 99vw;
+	padding: 0.5vh 0.25vw;
+	display: flex;
+	flex-direction: column;
 }
 
 img[src$='.png'] {
 	height: 2vh;
+}
+
+.today,
+.future {
+	flex: 1;
+	margin: 0.5vh 0.25vw;
+	display: flex;
+	flex-direction: column;
 }
