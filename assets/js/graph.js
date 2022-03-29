@@ -20,6 +20,12 @@ function init() {
 	addToggles();
 }
 
+// update graphs whenever window is resized
+// var object = document.querySelector('.graph-container');
+window.addEventListener('resize', () => {
+	renderGraph();
+});
+
 function addToggles() {
 	// get a node list of all options
 	graphs = document.querySelectorAll('.graph-option');
@@ -29,7 +35,7 @@ function addToggles() {
 				g.classList.remove('active');
 			});
 			graph.classList.add('active');
-			getOption();
+			updateSelectedOption();
 			renderGraph();
 		});
 	});
@@ -55,12 +61,12 @@ function getData() {
 				dailyHumidity[i] = parseFloat(data.daily[i].humidity).toFixed(0);
 			}
 
-			getOption();
+			updateSelectedOption();
 			renderGraph();
 		});
 }
 
-function getOption() {
+function updateSelectedOption() {
 	// get a node list of all options
 	graphs = document.querySelectorAll('.graph-option');
 
@@ -87,21 +93,15 @@ function renderGraph() {
 		arr = hourlyHumidity;
 	}
 
-	var ymax = getMax(arr);
-	var ymin = getMin(arr);
-
-	console.log(`the arr is ${arr}`);
-	console.log(`ymax = ${ymax}, ymin = ${ymin}`);
-
 	// variable for the namespace
 	const svgns = 'http://www.w3.org/2000/svg';
 	var svg1 = document.querySelector('#svg1');
-	while (svg1.children[2]) {
+	while (svg1.children[1]) {
 		svg1.removeChild(svg1.lastChild);
 	}
 
 	var parentContainer = document.querySelector('.graph-container');
-	var svgWidth = parentContainer.clientWidth * 0.95;
+	var svgWidth = parentContainer.clientWidth;
 	var xIncrement = svgWidth / 25;
 	svg1.setAttribute('width', svgWidth);
 
@@ -109,17 +109,35 @@ function renderGraph() {
 	var heightOfGraph = baseline + 5;
 	var heightOfText = heightOfGraph + 5;
 
+	var ymax = getMax(arr);
+	var ymin = getMin(arr);
+	const heightOfMaxLabel = 48;
+	const heightOfMinLabel = 0;
+	var svgHeight = 80;
+
+	console.log(`${option} = ${arr}`);
+
 	// GRAPH
 
 	// labels
 	var g = document.createElementNS(svgns, 'g');
 	g.setAttribute('text-anchor', 'middle');
 	g.setAttribute('fill', '#fff');
-	for (var i = 0; i < 24; i++) {
+	var increment = 1;
+	var startLabel = 0;
+	if (svgWidth < 968) {
+		startLabel = 2;
+		increment = 2;
+	}
+	if (svgWidth < 576) {
+		startLabel = 2;
+		increment = 4;
+	}
+	for (var i = startLabel; i < 24; i += increment) {
 		var label = document.createElementNS(svgns, 'text');
 
 		label.setAttribute('x', xIncrement * (i + 1));
-		label.setAttribute('y', 80 - 2 * arr[i] - heightOfText);
+		label.setAttribute('y', svgHeight - scale(+arr[i], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfText);
 		label.textContent = arr[i].toString();
 
 		g.appendChild(label);
@@ -127,43 +145,76 @@ function renderGraph() {
 	svg1.appendChild(g);
 
 	// FILL
+	var increment = 1;
+	var startLabel = 0;
+	if (svgWidth < 968) {
+		startLabel = 2;
+		increment = 2;
+	}
+	if (svgWidth < 576) {
+		startLabel = 2;
+		increment = 4;
+	}
 	var path = document.createElementNS(svgns, 'path');
 	var drawString = [];
-	drawString.push(` M 0 ${80 - 2 * parseFloat(arr[0]) - heightOfGraph}`);
-	for (var i = 0; i < 24; i++) {
-		drawString.push(` L ${(i + 1) * xIncrement} ${80 - 2 * parseFloat(arr[i]) - heightOfGraph}`);
+	drawString.push(` M 0 ${svgHeight - scale(+arr[0], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
+	for (var i = startLabel; i < 24; i += increment) {
+		drawString.push(` L ${(i + 1) * xIncrement} ${svgHeight - scale(+arr[i], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	}
-	drawString.push(`L ${svgWidth} ${80 - 2 * parseFloat(arr[23]) - heightOfGraph}`);
-	drawString.push(`L ${svgWidth} ${80 - baseline}`);
-	drawString.push(`L 0 ${80 - baseline}`);
+	drawString.push(`L ${svgWidth - 1} ${svgHeight - scale(+arr[23], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
+	drawString.push(`L ${svgWidth - 1} ${svgHeight - baseline}`);
+	drawString.push(`L 0 ${svgHeight - baseline}`);
 	drawString.push(` Z`); // close the path
 	drawString = drawString.join(' ');
 	path.setAttribute('d', drawString);
 	path.setAttribute('fill', 'url(#temperatureGradient)');
 	svg1.appendChild(path);
 	// OUTLINE
+	var increment = 1;
+	var startLabel = 0;
+	if (svgWidth < 968) {
+		startLabel = 2;
+		increment = 2;
+	}
+	if (svgWidth < 576) {
+		startLabel = 2;
+		increment = 4;
+	}
 	var path = document.createElementNS(svgns, 'path');
 	var drawString = [];
-	drawString.push(` M 0 ${80 - 2 * parseFloat(arr[0]) - heightOfGraph}`);
-	for (var i = 0; i < 24; i++) {
-		drawString.push(` L ${(i + 1) * xIncrement} ${80 - 2 * parseFloat(arr[i]) - heightOfGraph}`);
+	drawString.push(` M 0 ${svgHeight - scale(+arr[0], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
+	for (var i = startLabel; i < 24; i += increment) {
+		drawString.push(` L ${(i + 1) * xIncrement} ${svgHeight - scale(+arr[i], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	}
-	drawString.push(`L ${svgWidth} ${80 - 2 * parseFloat(arr[23]) - heightOfGraph}`);
+	drawString.push(`L ${svgWidth} ${svgHeight - scale(+arr[23], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	drawString = drawString.join(' ');
 	path.setAttribute('d', drawString);
-	path.setAttribute('stroke', '#fff');
+	path.setAttribute('stroke', '#513d6e');
 	path.setAttribute('stroke-width', '2');
 	path.setAttribute('fill', 'none');
 	svg1.appendChild(path);
+
 	// x-axis
 	var tickHeight = 2;
 	var g = document.createElementNS(svgns, 'g');
 	g.setAttribute('text-anchor', 'middle');
 	g.setAttribute('fill', '#fff');
-	for (var i = 0; i < 24; i++) {
+
+	var startTick = 0;
+	var increment = 1;
+
+	if (svgWidth < 968) {
+		startTick = 2;
+		increment = 2;
+	}
+	if (svgWidth < 576) {
+		startTick = 2;
+		increment = 4;
+	}
+	for (var i = startTick; i < 24; i += increment) {
 		var tick = document.createElementNS(svgns, 'text');
 		tick.setAttribute('x', xIncrement * (i + 1));
-		tick.setAttribute('y', 80 - tickHeight);
+		tick.setAttribute('y', svgHeight - tickHeight);
 		tick.textContent = moment(i, 'h').format('h\na');
 		g.appendChild(tick);
 	}
@@ -172,8 +223,8 @@ function renderGraph() {
 
 function getMax(arr) {
 	var max = arr[0];
-	for (var i = 0; i < 24; i++) {
-		if (arr[i] >= max) {
+	for (var i = 0; i < arr.length; i++) {
+		if (+arr[i] >= +max) {
 			max = arr[i];
 		}
 	}
@@ -182,10 +233,15 @@ function getMax(arr) {
 
 function getMin(arr) {
 	var min = arr[0];
-	for (var i = 0; i < 24; i++) {
-		if (arr[i] <= min) {
+	for (var i = 0; i < arr.length; i++) {
+		if (+arr[i] <= +min) {
 			min = arr[i];
 		}
 	}
 	return min;
 }
+
+// map a range of numbers to another range of numbers
+const scale = (num, in_min, in_max, out_min, out_max) => {
+	return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+};

@@ -34,20 +34,21 @@
 	/* container for all the card cards */
 	/* layout */
 
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	column-gap: 1vw;
+	display: flex;
+	flex-wrap: wrap;
+
 	align-items: stretch;
 	justify-content: center;
-	flex: 1;
 }
 
-.card {
+.card:not(.today) {
 	/* each card card */
 	/* layout */
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	width: 300px;
+	margin: 0.5vh 0.5vw;
 }
 .card-title {
 	/* Layout - flex*/
@@ -64,7 +65,7 @@
 	/* Appearance */
 
 	background-color: var(--card-panel-title-bgcolor);
-	border-radius: 30px 30px 0 0;
+	/* border-radius: 30px 30px 0 0; */
 }
 .card-title p {
 	line-height: 1;
@@ -79,6 +80,8 @@
 	color: #101210;
 	font-weight: bold;
 	line-height: 1;
+
+	/* layout */
 	display: grid;
 	align-items: center;
 	justify-content: center;

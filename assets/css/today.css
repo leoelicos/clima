@@ -27,7 +27,12 @@
 
 .today .card {
 	/* border: 1px solid green; */
+	display: flex;
+	flex-direction: column;
 	width: 100%;
+}
+.today .card {
+	align-self: center;
 }
 
 .today .card-info {
