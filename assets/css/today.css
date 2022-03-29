@@ -14,6 +14,7 @@
 
 	/* layout - grid */
 	display: flex;
+	flex-direction: column;
 	align-items: stretch;
 	justify-content: space-evenly;
 
@@ -29,7 +30,7 @@
 	width: 100%;
 }
 
-.today .graph-container {
-	flex: 1;
-	/* border: 1px solid yellow; */
+.today .card-info {
+	grid-template-columns: repeat(8, auto);
+	grid-template-rows: repeat(4, auto);
 }

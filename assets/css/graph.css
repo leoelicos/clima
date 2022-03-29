@@ -1,10 +1,9 @@
 .graph-container {
-	height: 100%;
-
+	flex: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: stretch;
+	justify-content: space-between;
 }
 .graph-menu {
 	flex: 0;
@@ -12,18 +11,21 @@
 	margin: 0.5vh 0;
 }
 .graph-options {
+	margin-bottom: 2vh;
+}
+.graph-option {
 	padding-bottom: 0.7vh;
-	margin-bottom: 0.5vh;
+	margin: 1vh 1vw;
 	color: white;
 	cursor: pointer;
 }
 
-.graph-options:hover,
-.graph-options.active {
-	border-bottom: 1px solid white;
+.graph-option:hover,
+.graph-option.active {
+	border-bottom: 0.5vh solid white;
 }
 
-.graph-options-divider {
+.graph-option-divider {
 	color: var(--primary-complement);
 	margin: 0 1vw;
 }

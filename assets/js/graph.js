@@ -1,7 +1,3 @@
-const graph = document.getElementById('temperature-graph');
-const heightOfText = -5;
-const heightOfGraph = 0;
-
 // data arrays
 var hourlyTemp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var hourlyWind = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -13,10 +9,30 @@ var dailyWind = [0, 0, 0, 0, 0, 0];
 var dailyUV = [0, 0, 0, 0, 0, 0];
 var dailyHumidity = [0, 0, 0, 0, 0, 0];
 
+var option; // takes 4 values:option-temperature, option-wind, option-uv, option-humidity
+var graphs;
+var selectedGraph;
+
 init();
 
 function init() {
 	getData();
+	addToggles();
+}
+
+function addToggles() {
+	// get a node list of all options
+	graphs = document.querySelectorAll('.graph-option');
+	graphs.forEach((graph) => {
+		graph.addEventListener('click', () => {
+			graphs.forEach((g) => {
+				g.classList.remove('active');
+			});
+			graph.classList.add('active');
+			getOption();
+			renderGraph();
+		});
+	});
 }
 
 function getData() {
@@ -38,181 +54,138 @@ function getData() {
 				dailyUV[i] = parseFloat(data.daily[i].uvi).toFixed(0);
 				dailyHumidity[i] = parseFloat(data.daily[i].humidity).toFixed(0);
 			}
-			console.log(`hourlyTemp = ${hourlyTemp}`);
-			console.log(`hourlyWind = ${hourlyWind}`);
-			console.log(`hourlyUV = ${hourlyUV}`);
-			console.log(`hourlyHumidity = ${hourlyHumidity}`);
-			console.log(`dailyTemp = ${dailyTemp}`);
-			console.log(`dailyWind = ${dailyWind}`);
-			console.log(`dailyUV = ${dailyUV}`);
-			console.log(`dailyHumidity = ${dailyHumidity}`);
-		})
-		.then(() => {
-			// variable for the namespace
-			const svgns = 'http://www.w3.org/2000/svg';
-			const svg1 = document.querySelector('#svg1');
-			const svg2 = document.querySelector('#svg2');
-			const svg3 = document.querySelector('#svg3');
-			const svg4 = document.querySelector('#svg4');
 
-			// TEMPERATURE GRAPH
-			// TEXT
-			for (var i = 0; i < 24; i++) {
-				var textTemperatures = document.createElementNS(svgns, 'text');
-				textTemperatures.setAttribute('fill', '#fff');
-				textTemperatures.setAttribute('x', 20 * (i + 1));
-				textTemperatures.setAttribute('y', 80 - 2 * hourlyTemp[i] + heightOfText);
-				textTemperatures.textContent = hourlyTemp[i].toString();
-				svg1.appendChild(textTemperatures);
-			}
-			// FILL
-			var path = document.createElementNS(svgns, 'path');
-			var drawString = [];
-			drawString.push(` M 0 ${80 - 2 * parseFloat(hourlyTemp[0]) + heightOfGraph}`);
-			for (var i = 0; i < 24; i++) {
-				drawString.push(` L ${(i + 1) * 20} ${80 - 2 * parseFloat(hourlyTemp[i]) + heightOfGraph}`);
-			}
-			drawString.push(`L 500 ${80 - 2 * parseFloat(hourlyTemp[23]) + heightOfGraph}`);
-			drawString.push(`L 500 80`);
-			drawString.push(`L 0 80`);
-			drawString.push(` Z`); // close the path
-			drawString = drawString.join(' ');
-			path.setAttribute('d', drawString);
-			path.setAttribute('fill', 'url(#temperatureGradient)');
-			svg1.appendChild(path);
-			// OUTLINE
-			var path = document.createElementNS(svgns, 'path');
-			var drawString = [];
-			drawString.push(` M 0 ${80 - 2 * parseFloat(hourlyTemp[0]) + heightOfGraph}`);
-			for (var i = 0; i < 24; i++) {
-				drawString.push(` L ${(i + 1) * 20} ${80 - 2 * parseFloat(hourlyTemp[i]) + heightOfGraph}`);
-			}
-			drawString.push(`L 500 ${80 - 2 * parseFloat(hourlyTemp[23]) + heightOfGraph}`);
-			drawString = drawString.join(' ');
-			path.setAttribute('d', drawString);
-			path.setAttribute('stroke', '#fff');
-			path.setAttribute('stroke-width', '2');
-			path.setAttribute('fill', 'none');
-			svg1.appendChild(path);
-
-			// WIND GRAPH
-			// TEXT
-			for (var i = 0; i < 24; i++) {
-				var textWind = document.createElementNS(svgns, 'text');
-				textWind.setAttribute('fill', '#fff');
-				textWind.setAttribute('x', 20 * (i + 1));
-				textWind.setAttribute('y', 80 - 2 * hourlyWind[i] - 30);
-				textWind.textContent = hourlyWind[i].toString();
-				svg2.appendChild(textWind);
-			}
-			// FILL
-			var path = document.createElementNS(svgns, 'path');
-			var drawString = [];
-			drawString.push(` M 0 ${80 - 2 * parseFloat(hourlyWind[0]) - 20}`);
-			for (var i = 0; i < 24; i++) {
-				drawString.push(` L ${(i + 1) * 20} ${80 - 2 * parseFloat(hourlyWind[i]) - 20}`);
-			}
-			drawString.push(`L 500 ${80 - 2 * parseFloat(hourlyWind[23]) - 20}`);
-			drawString.push(`L 500 80`);
-			drawString.push(`L 0 80`);
-			drawString.push(` Z`); // close the path
-			drawString = drawString.join(' ');
-			path.setAttribute('d', drawString);
-			path.setAttribute('fill', 'url(#windGradient)');
-			svg2.appendChild(path);
-			// OUTLINE
-			var path = document.createElementNS(svgns, 'path');
-			var drawString = [];
-			drawString.push(` M 0 ${80 - 2 * parseFloat(hourlyWind[0]) - 20}`);
-			for (var i = 0; i < 24; i++) {
-				drawString.push(` L ${(i + 1) * 20} ${80 - 2 * parseFloat(hourlyWind[i]) - 20}`);
-			}
-			drawString.push(`L 500 ${80 - 2 * parseFloat(hourlyWind[23]) - 20}`);
-			drawString = drawString.join(' ');
-			path.setAttribute('d', drawString);
-			path.setAttribute('stroke', '#fff');
-			path.setAttribute('stroke-width', '2');
-			path.setAttribute('fill', 'none');
-			svg2.appendChild(path);
-
-			// UV GRAPH
-			// TEXT
-			for (var i = 0; i < 24; i++) {
-				var textUV = document.createElementNS(svgns, 'text');
-				textUV.setAttribute('fill', '#fff');
-				textUV.setAttribute('x', 20 * (i + 1));
-				textUV.setAttribute('y', 80 - 2 * hourlyUV[i] - 40);
-				textUV.textContent = hourlyUV[i].toString();
-				svg3.appendChild(textUV);
-			}
-			// FILL
-			var path = document.createElementNS(svgns, 'path');
-			var drawString = [];
-			drawString.push(` M 0 ${80 - 2 * parseFloat(hourlyUV[0]) - 30}`);
-			for (var i = 0; i < 24; i++) {
-				drawString.push(` L ${(i + 1) * 20} ${80 - 2 * parseFloat(hourlyUV[i]) - 30}`);
-			}
-			drawString.push(`L 500 ${80 - 2 * parseFloat(hourlyUV[23]) - 30}`);
-			drawString.push(`L 500 80`);
-			drawString.push(`L 0 80`);
-			drawString.push(` Z`); // close the path
-			drawString = drawString.join(' ');
-			path.setAttribute('d', drawString);
-			path.setAttribute('fill', 'url(#humidityGradient)');
-			svg3.appendChild(path);
-			// OUTLINE
-			var path = document.createElementNS(svgns, 'path');
-			var drawString = [];
-			drawString.push(` M 0 ${80 - 2 * parseFloat(hourlyUV[0]) - 30}`);
-			for (var i = 0; i < 24; i++) {
-				drawString.push(` L ${(i + 1) * 20} ${80 - 2 * parseFloat(hourlyUV[i]) - 30}`);
-			}
-			drawString.push(`L 500 ${80 - 2 * parseFloat(hourlyUV[23]) - 30}`);
-			drawString = drawString.join(' ');
-			path.setAttribute('d', drawString);
-			path.setAttribute('stroke', '#fff');
-			path.setAttribute('stroke-width', '2');
-			path.setAttribute('fill', 'none');
-			svg3.appendChild(path);
-
-			// HUMIDITY GRAPH
-			// TEXT
-			for (var i = 0; i < 24; i++) {
-				var textHumidity = document.createElementNS(svgns, 'text');
-				textHumidity.setAttribute('fill', '#fff');
-				textHumidity.setAttribute('x', 20 * (i + 1));
-				textHumidity.setAttribute('y', 80 - hourlyHumidity[i] + 30);
-				textHumidity.textContent = hourlyHumidity[i].toString();
-				svg4.appendChild(textHumidity);
-			}
-			// FILL
-			var path = document.createElementNS(svgns, 'path');
-			var drawString = [];
-			drawString.push(` M 0 ${80 - parseFloat(hourlyHumidity[0]) + 40}`);
-			for (var i = 0; i < 24; i++) {
-				drawString.push(` L ${(i + 1) * 20} ${80 - parseFloat(hourlyHumidity[i]) + 40}`);
-			}
-			drawString.push(`L 500 ${80 - parseFloat(hourlyHumidity[23]) + 40}`);
-			drawString.push(`L 500 80`);
-			drawString.push(`L 0 80`);
-			drawString.push(` Z`); // close the path
-			drawString = drawString.join(' ');
-			path.setAttribute('d', drawString);
-			path.setAttribute('fill', 'url(#humidityGradient)');
-			svg4.appendChild(path);
-			// OUTLINE
-			var path = document.createElementNS(svgns, 'path');
-			var drawString = [];
-			drawString.push(` M 0 ${80 - parseFloat(hourlyHumidity[0]) + 40}`);
-			for (var i = 0; i < 24; i++) {
-				drawString.push(` L ${(i + 1) * 20} ${80 - parseFloat(hourlyHumidity[i]) + 40}`);
-			}
-			drawString.push(`L 500 ${80 - parseFloat(hourlyHumidity[23]) + 40}`);
-			drawString = drawString.join(' ');
-			path.setAttribute('d', drawString);
-			path.setAttribute('stroke', '#fff');
-			path.setAttribute('stroke-width', '2');
-			path.setAttribute('fill', 'none');
-			svg4.appendChild(path);
+			getOption();
+			renderGraph();
 		});
+}
+
+function getOption() {
+	// get a node list of all options
+	graphs = document.querySelectorAll('.graph-option');
+
+	// get the option with the active class
+	var selectedGraph;
+	graphs.forEach((graph) => {
+		if (graph.matches('.active')) {
+			selectedGraph = graph;
+		}
+	});
+
+	option = selectedGraph.getAttribute('id');
+}
+
+function renderGraph() {
+	var arr;
+	if (option === 'option-temperature') {
+		arr = hourlyTemp;
+	} else if (option === 'option-wind') {
+		arr = hourlyWind;
+	} else if (option === 'option-uv') {
+		arr = hourlyUV;
+	} else if (option === 'option-humidity') {
+		arr = hourlyHumidity;
+	}
+
+	var ymax = getMax(arr);
+	var ymin = getMin(arr);
+
+	console.log(`the arr is ${arr}`);
+	console.log(`ymax = ${ymax}, ymin = ${ymin}`);
+
+	// variable for the namespace
+	const svgns = 'http://www.w3.org/2000/svg';
+	var svg1 = document.querySelector('#svg1');
+	while (svg1.children[2]) {
+		svg1.removeChild(svg1.lastChild);
+	}
+
+	var parentContainer = document.querySelector('.graph-container');
+	var svgWidth = parentContainer.clientWidth * 0.95;
+	var xIncrement = svgWidth / 25;
+	svg1.setAttribute('width', svgWidth);
+
+	var baseline = 12;
+	var heightOfGraph = baseline + 5;
+	var heightOfText = heightOfGraph + 5;
+
+	// GRAPH
+
+	// labels
+	var g = document.createElementNS(svgns, 'g');
+	g.setAttribute('text-anchor', 'middle');
+	g.setAttribute('fill', '#fff');
+	for (var i = 0; i < 24; i++) {
+		var label = document.createElementNS(svgns, 'text');
+
+		label.setAttribute('x', xIncrement * (i + 1));
+		label.setAttribute('y', 80 - 2 * arr[i] - heightOfText);
+		label.textContent = arr[i].toString();
+
+		g.appendChild(label);
+	}
+	svg1.appendChild(g);
+
+	// FILL
+	var path = document.createElementNS(svgns, 'path');
+	var drawString = [];
+	drawString.push(` M 0 ${80 - 2 * parseFloat(arr[0]) - heightOfGraph}`);
+	for (var i = 0; i < 24; i++) {
+		drawString.push(` L ${(i + 1) * xIncrement} ${80 - 2 * parseFloat(arr[i]) - heightOfGraph}`);
+	}
+	drawString.push(`L ${svgWidth} ${80 - 2 * parseFloat(arr[23]) - heightOfGraph}`);
+	drawString.push(`L ${svgWidth} ${80 - baseline}`);
+	drawString.push(`L 0 ${80 - baseline}`);
+	drawString.push(` Z`); // close the path
+	drawString = drawString.join(' ');
+	path.setAttribute('d', drawString);
+	path.setAttribute('fill', 'url(#temperatureGradient)');
+	svg1.appendChild(path);
+	// OUTLINE
+	var path = document.createElementNS(svgns, 'path');
+	var drawString = [];
+	drawString.push(` M 0 ${80 - 2 * parseFloat(arr[0]) - heightOfGraph}`);
+	for (var i = 0; i < 24; i++) {
+		drawString.push(` L ${(i + 1) * xIncrement} ${80 - 2 * parseFloat(arr[i]) - heightOfGraph}`);
+	}
+	drawString.push(`L ${svgWidth} ${80 - 2 * parseFloat(arr[23]) - heightOfGraph}`);
+	drawString = drawString.join(' ');
+	path.setAttribute('d', drawString);
+	path.setAttribute('stroke', '#fff');
+	path.setAttribute('stroke-width', '2');
+	path.setAttribute('fill', 'none');
+	svg1.appendChild(path);
+	// x-axis
+	var tickHeight = 2;
+	var g = document.createElementNS(svgns, 'g');
+	g.setAttribute('text-anchor', 'middle');
+	g.setAttribute('fill', '#fff');
+	for (var i = 0; i < 24; i++) {
+		var tick = document.createElementNS(svgns, 'text');
+		tick.setAttribute('x', xIncrement * (i + 1));
+		tick.setAttribute('y', 80 - tickHeight);
+		tick.textContent = moment(i, 'h').format('h\na');
+		g.appendChild(tick);
+	}
+	svg1.appendChild(g);
+}
+
+function getMax(arr) {
+	var max = arr[0];
+	for (var i = 0; i < 24; i++) {
+		if (arr[i] >= max) {
+			max = arr[i];
+		}
+	}
+	return max;
+}
+
+function getMin(arr) {
+	var min = arr[0];
+	for (var i = 0; i < 24; i++) {
+		if (arr[i] <= min) {
+			min = arr[i];
+		}
+	}
+	return min;
 }
