@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This easy-to-use dashboard allows the user to search for any city they want and get instant results for temperature, wind speed, UV index and humidity. This app solves the problem of getting useful information quickly about any city. I made this app to learn about Server-side APIs, and I used OpenWeather API in this project to search their database with the queried city.
+This easy-to-use dashboard allows the user to search for any city they want and get instant results for temperature, wind speed, UV index and humidity. This app solves the problem of getting useful information quickly about any city. I made this app to learn about Server-side APIs, and I used OpenWeather API in this project to search their database with the queried city. I also learned how to generate an SVG dynamically and also make it responsive to the width of the viewport.
 
 ## Usage
 
@@ -14,11 +14,11 @@ Deployed: [Worldwide Weather At A Glance](https://leoelicos.github.io/bcs-06-wea
 
 ### Mobile devices
 
-![Description](./assets/mockups/narrow.jpg)
+![Weather Dashboard Deployed Small Screen](./assets/images/ssnarrow.jpg)
 
 ### Large screens
 
-![Description](./assets/mockups/wide.jpg)
+![Weather Dashboard Deployed Large Screen](./assets/images/sswide.jpg)
 
 ## Credits
 
