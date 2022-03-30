@@ -89,7 +89,8 @@
 	flex: 1;
 }
 .card-info-icon img {
-	width: 3vh;
+	width: 8vh;
+	height: 8vh;
 }
 
 /* weather stats */

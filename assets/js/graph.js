@@ -8,6 +8,7 @@ var dailyTemp = [0, 0, 0, 0, 0, 0];
 var dailyWind = [0, 0, 0, 0, 0, 0];
 var dailyUV = [0, 0, 0, 0, 0, 0];
 var dailyHumidity = [0, 0, 0, 0, 0, 0];
+var dailyWeatherIcons = ['', '', '', '', '', ''];
 
 var option; // takes 4 values:option-temperature, option-wind, option-uv, option-humidity
 var graphs;
@@ -15,7 +16,7 @@ var selectedGraph;
 
 var tempThreshold = [0, 10, 20, 30, 40];
 var windThreshold = [0, 10, 20, 30, 40];
-var uvThreshold = [0, 0.2, 0.4, 0.6, 0.8];
+var uvThreshold = [0, 2, 4, 6, 8];
 var humidityThreshold = [0, 30, 50, 60, 70];
 
 var localDate;
@@ -23,15 +24,15 @@ var localDate;
 function init() {
 	getData();
 	addToggles();
-	// update the weather icons
-	// update the ball colors
 }
+function updateDailyIcons() {
+	// today's weather icon
+	var imgEl = document.querySelector('.today .card-info-icon img');
+	imgEl.setAttribute('src', `https://openweathermap.org/img/wn/${dailyWeatherIcons[0]}@2x.png`);
 
-function updateWeatherIcons() {
-	// if dangerous, 5 balls white
-	// if not dangerous, 5 balls gray
-	for (var i = 0; i < 6; i++) {
-		// if(dailyTemp[i])
+	for (var i = 1; i <= 5; i++) {
+		var imgEl = document.querySelector(`#card${i} .card-info-icon img`);
+		imgEl.setAttribute('src', `https://openweathermap.org/img/wn/${dailyWeatherIcons[i]}@2x.png`);
 	}
 }
 
@@ -61,6 +62,17 @@ function updateTemperatures() {
 	document.querySelector(`.card-info-panel-numerical.temp3`).textContent = `${dailyTemp[3]}°C`;
 	document.querySelector(`.card-info-panel-numerical.temp4`).textContent = `${dailyTemp[4]}°C`;
 	document.querySelector(`.card-info-panel-numerical.temp5`).textContent = `${dailyTemp[5]}°C`;
+
+	var cardID = 0;
+	for (cardID = 0; cardID <= 5; cardID++) {
+		var nodeList = document.querySelectorAll(`.card-info-panel-graphical.temp${cardID} .ball`);
+		for (var i = 0; i < nodeList.length; i++) {
+			nodeList[i].classList.remove('ballHighlight');
+			if (dailyTemp[cardID] > tempThreshold[i]) {
+				nodeList[i].classList.add('ballHighlight');
+			}
+		}
+	}
 }
 function updateWinds() {
 	document.querySelector(`.card-info-panel-numerical.wind0`).textContent = `${dailyWind[0]}kph`;
@@ -69,14 +81,36 @@ function updateWinds() {
 	document.querySelector(`.card-info-panel-numerical.wind3`).textContent = `${dailyWind[3]}kph`;
 	document.querySelector(`.card-info-panel-numerical.wind4`).textContent = `${dailyWind[4]}kph`;
 	document.querySelector(`.card-info-panel-numerical.wind5`).textContent = `${dailyWind[5]}kph`;
+
+	var cardID = 0;
+	for (cardID = 0; cardID <= 5; cardID++) {
+		var nodeList = document.querySelectorAll(`.card-info-panel-graphical.wind${cardID} .ball`);
+		for (var i = 0; i < nodeList.length; i++) {
+			nodeList[i].classList.remove('ballHighlight');
+			if (dailyWind[cardID] > windThreshold[i]) {
+				nodeList[i].classList.add('ballHighlight');
+			}
+		}
+	}
 }
 function updateUVs() {
-	document.querySelector(`.card-info-panel-numerical.uv0`).textContent = `0.${dailyUV[0]}`;
-	document.querySelector(`.card-info-panel-numerical.uv1`).textContent = `0.${dailyUV[1]}`;
-	document.querySelector(`.card-info-panel-numerical.uv2`).textContent = `0.${dailyUV[2]}`;
-	document.querySelector(`.card-info-panel-numerical.uv3`).textContent = `0.${dailyUV[3]}`;
-	document.querySelector(`.card-info-panel-numerical.uv4`).textContent = `0.${dailyUV[4]}`;
-	document.querySelector(`.card-info-panel-numerical.uv5`).textContent = `0.${dailyUV[5]}`;
+	document.querySelector(`.card-info-panel-numerical.uv0`).textContent = `${dailyUV[0]}`;
+	document.querySelector(`.card-info-panel-numerical.uv1`).textContent = `${dailyUV[1]}`;
+	document.querySelector(`.card-info-panel-numerical.uv2`).textContent = `${dailyUV[2]}`;
+	document.querySelector(`.card-info-panel-numerical.uv3`).textContent = `${dailyUV[3]}`;
+	document.querySelector(`.card-info-panel-numerical.uv4`).textContent = `${dailyUV[4]}`;
+	document.querySelector(`.card-info-panel-numerical.uv5`).textContent = `${dailyUV[5]}`;
+	var cardID = 0;
+	for (cardID = 0; cardID <= 5; cardID++) {
+		var nodeList = document.querySelectorAll(`.card-info-panel-graphical.uv${cardID} .ball`);
+		for (var i = 0; i < nodeList.length; i++) {
+			nodeList[i].classList.remove('ballHighlight');
+			if (dailyUV[cardID] > uvThreshold[i]) {
+				nodeList[i].classList.add('ballHighlight');
+			}
+			// console.log(dailyUV[cardID] + ', ' + uvThreshold[i]);
+		}
+	}
 }
 function updateHumidities() {
 	document.querySelector(`.card-info-panel-numerical.hum0`).textContent = `${dailyHumidity[0]}%`;
@@ -85,6 +119,16 @@ function updateHumidities() {
 	document.querySelector(`.card-info-panel-numerical.hum3`).textContent = `${dailyHumidity[3]}%`;
 	document.querySelector(`.card-info-panel-numerical.hum4`).textContent = `${dailyHumidity[4]}%`;
 	document.querySelector(`.card-info-panel-numerical.hum5`).textContent = `${dailyHumidity[5]}%`;
+	var cardID = 0;
+	for (cardID = 0; cardID <= 5; cardID++) {
+		var nodeList = document.querySelectorAll(`.card-info-panel-graphical.hum${cardID} .ball`);
+		for (var i = 0; i < nodeList.length; i++) {
+			nodeList[i].classList.remove('ballHighlight');
+			if (dailyHumidity[cardID] > humidityThreshold[i]) {
+				nodeList[i].classList.add('ballHighlight');
+			}
+		}
+	}
 }
 
 // update graphs whenever window is resized
@@ -114,6 +158,7 @@ function getData() {
 			return response.json();
 		})
 		.then((data) => {
+			console.log(data);
 			for (var i = 0; i < 24; i++) {
 				hourlyTemp[i] = parseFloat(data.hourly[i].temp).toFixed(0);
 				hourlyWind[i] = parseFloat(data.hourly[i].wind_speed).toFixed(0);
@@ -124,8 +169,10 @@ function getData() {
 				// calculate average temperature out of morning, day, evening, night
 				dailyTemp[i] = ((parseFloat(data.daily[i].temp.morn) + parseFloat(data.daily[i].temp.day) + parseFloat(data.daily[i].temp.eve) + parseFloat(data.daily[i].temp.night)) / 4).toFixed(0);
 				dailyWind[i] = parseFloat(data.daily[i].wind_speed).toFixed(0);
-				dailyUV[i] = parseFloat(data.daily[i].uvi).toFixed(0);
+				dailyUV[i] = parseFloat(data.daily[i].uvi).toFixed(1);
 				dailyHumidity[i] = parseFloat(data.daily[i].humidity).toFixed(0);
+				dailyWeatherIcons[i] = data.daily[i].weather[0].icon;
+				console.log(`Downloaded day${i} icon = ${dailyWeatherIcons[i]}`);
 				localDate = parseFloat(data.daily[i].dt);
 			}
 
@@ -135,6 +182,7 @@ function getData() {
 			updateWinds();
 			updateUVs();
 			updateHumidities();
+			updateDailyIcons();
 
 			renderGraph();
 		});
