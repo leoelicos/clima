@@ -158,7 +158,7 @@ function getData() {
 			return response.json();
 		})
 		.then((data) => {
-			console.log(data);
+			// console.log(data);
 			for (var i = 0; i < 24; i++) {
 				hourlyTemp[i] = parseFloat(data.hourly[i].temp).toFixed(0);
 				hourlyWind[i] = parseFloat(data.hourly[i].wind_speed).toFixed(0);
@@ -172,7 +172,7 @@ function getData() {
 				dailyUV[i] = parseFloat(data.daily[i].uvi).toFixed(1);
 				dailyHumidity[i] = parseFloat(data.daily[i].humidity).toFixed(0);
 				dailyWeatherIcons[i] = data.daily[i].weather[0].icon;
-				console.log(`Downloaded day${i} icon = ${dailyWeatherIcons[i]}`);
+				// console.log(`Downloaded day${i} icon = ${dailyWeatherIcons[i]}`);
 				localDate = parseFloat(data.daily[i].dt);
 			}
 
