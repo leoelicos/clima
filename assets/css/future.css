@@ -25,6 +25,9 @@
 .future .card-title .date {
 	display: inline-block;
 }
+.future .card-info-icon {
+	grid-column: 1/5;
+}
 
 @media screen and (max-width: 1020px) {
 	.future .card-info {
