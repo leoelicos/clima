@@ -204,5 +204,5 @@ function updateLatAndLon() {
 }
 
 function geocodingAPI(query) {
-	return `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=19efebdbf2035141aa7986691561dc9f&units=metric&lang=en`;
+	return `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=19efebdbf2035141aa7986691561dc9f&units=metric&lang=en`;
 }
