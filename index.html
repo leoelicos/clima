@@ -59,16 +59,16 @@
 				<div class="cards-title">Today</div>
 
 				<section class="card-today">
-					<div class="card-title">Sun | 27 Mar | 11:19 PM</div>
+					<div class="card-title"><span class="day">—</span><span class="separator">|</span><span class="date">—</span></div>
 
 					<div class="card-split">
+						<div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
 						<article class="card">
 							<div class="card-info">
-								<!-- <div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div> -->
-								<div class="card-info-panel-label">TEMP</div>
-								<div class="card-info-panel-numerical">15°C</div>
+								<div class="card-info-panel-label temp0">TEMP</div>
+								<div class="card-info-panel-numerical temp0">15°C</div>
 								<div class="card-info-panel-icon"><img src="./assets/images/temp.png" alt="" /></div>
-								<div class="card-info-panel-graphical" id="temp0graphical">
+								<div class="card-info-panel-graphical temp0">
 									<div class="ball"></div>
 									<div class="ball"></div>
 									<div class="ball"></div>
@@ -76,10 +76,10 @@
 									<div class="ball"></div>
 								</div>
 
-								<div class="card-info-panel-label">WIND</div>
-								<div class="card-info-panel-numerical">1kph</div>
+								<div class="card-info-panel-label wind0">WIND</div>
+								<div class="card-info-panel-numerical wind0">1kph</div>
 								<div class="card-info-panel-icon"><img src="./assets/images/wind.png" alt="" /></div>
-								<div class="card-info-panel-graphical" id="wind0graphical">
+								<div class="card-info-panel-graphical wind0">
 									<div class="ball"></div>
 									<div class="ball"></div>
 									<div class="ball"></div>
@@ -87,10 +87,10 @@
 									<div class="ball"></div>
 								</div>
 
-								<div class="card-info-panel-label">UV</div>
-								<div class="card-info-panel-numerical">0.47</div>
+								<div class="card-info-panel-label uv0">UV</div>
+								<div class="card-info-panel-numerical uv0">0.47</div>
 								<div class="card-info-panel-icon"><img src="./assets/images/uv.png" alt="" /></div>
-								<div class="card-info-panel-graphical" id="uv0graphical">
+								<div class="card-info-panel-graphical uv0">
 									<div class="ball"></div>
 									<div class="ball"></div>
 									<div class="ball"></div>
@@ -98,10 +98,10 @@
 									<div class="ball"></div>
 								</div>
 
-								<div class="card-info-panel-label">HUM</div>
-								<div class="card-info-panel-numerical">15°C</div>
+								<div class="card-info-panel-label hum0">HUM</div>
+								<div class="card-info-panel-numerical hum0">15°C</div>
 								<div class="card-info-panel-icon"><img src="./assets/images/water.png" alt="" /></div>
-								<div class="card-info-panel-graphical" id="hum0graphical">
+								<div class="card-info-panel-graphical hum0">
 									<div class="ball"></div>
 									<div class="ball"></div>
 									<div class="ball"></div>
@@ -110,24 +110,24 @@
 								</div>
 							</div>
 						</article>
-						<div class="graph-container">
-							<div class="graph-options">
-								<span class="graph-option" id="option-temperature">TEMP</span>
-								<span class="graph-option" id="option-wind">WIND</span>
-								<span class="graph-option active" id="option-uv">UV</span>
-								<span class="graph-option" id="option-humidity">HUM</span>
-							</div>
-							<svg id="svg1" xmlns="http://www.w3.org/2000/svg" width="500" height="80">
-								<defs>
-									<linearGradient id="temperatureGradient" x1="0" x2="0" y1="0" y2="1">
-										<stop offset="0%" stop-color="white" />
-										<stop offset="50%" stop-color="white" stop-opacity="1" />
-										<stop offset="100%" stop-color="white" stop-opacity="0" />
-									</linearGradient>
-								</defs>
-								<!-- <rect width="100%" height="100%" fill="#a99eba" /> -->
-							</svg>
+					</div>
+					<div class="graph-container">
+						<div class="graph-options">
+							<span class="graph-option" id="option-temperature">TEMP</span>
+							<span class="graph-option" id="option-wind">WIND</span>
+							<span class="graph-option active" id="option-uv">UV</span>
+							<span class="graph-option" id="option-humidity">HUM</span>
 						</div>
+						<svg id="svg1" xmlns="http://www.w3.org/2000/svg" width="500" height="80">
+							<defs>
+								<linearGradient id="temperatureGradient" x1="0" x2="0" y1="0" y2="1">
+									<stop offset="0%" stop-color="white" />
+									<stop offset="50%" stop-color="white" stop-opacity="1" />
+									<stop offset="100%" stop-color="white" stop-opacity="0" />
+								</linearGradient>
+							</defs>
+							<!-- <rect width="100%" height="100%" fill="#a99eba" /> -->
+						</svg>
 					</div>
 				</section>
 			</div>
@@ -135,44 +135,44 @@
 			<div class="future">
 				<div class="cards-title">5-day forecast</div>
 				<section class="cards">
-					<article class="card">
-						<div class="card-title"><span class="day">Thu</span><span class="separator">|</span><span class="date">31 Mar</span></div>
+					<article class="card" id="card1">
+						<div class="card-title"><span class="day">—</span><span class="separator">|</span><span class="date">—</span></div>
 						<div class="card-info">
-							<div class="card-info-icon temperature"><img src="./assets/images/globe.ico" alt="" /></div>
-							<div class="card-info-panel-label temperature">TEMP</div>
-							<div class="card-info-panel-numerical temperature">15°C</div>
-							<div class="card-info-panel-icon temperature"><img src="./assets/images/temp.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="temp1graphical">
+							<div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
+							<div class="card-info-panel-label temp1">TEMP</div>
+							<div class="card-info-panel-numerical temp1">15°C</div>
+							<div class="card-info-panel-icon"><img src="./assets/images/temp.png" alt="" /></div>
+							<div class="card-info-panel-graphical temp1">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label wind">WIND</div>
-							<div class="card-info-panel-numerical wind">1kph</div>
-							<div class="card-info-panel-icon wind"><img src="./assets/images/wind.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="wind1graphical">
+							<div class="card-info-panel-label wind1">WIND</div>
+							<div class="card-info-panel-numerical wind1">1kph</div>
+							<div class="card-info-panel-icon"><img src="./assets/images/wind.png" alt="" /></div>
+							<div class="card-info-panel-graphical wind1">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label uv">UV</div>
-							<div class="card-info-panel-numerical uv">0.47</div>
-							<div class="card-info-panel-icon uv"><img src="./assets/images/uv.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="uv1graphical">
+							<div class="card-info-panel-label uv1">UV</div>
+							<div class="card-info-panel-numerical uv1">0.47</div>
+							<div class="card-info-panel-icon"><img src="./assets/images/uv.png" alt="" /></div>
+							<div class="card-info-panel-graphical uv1">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label humidity">HUM</div>
-							<div class="card-info-panel-numerical humidity">15°C</div>
-							<div class="card-info-panel-icon humidity"><img src="./assets/images/water.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="hum1graphical">
+							<div class="card-info-panel-label hum1">HUM</div>
+							<div class="card-info-panel-numerical hum1">15°C</div>
+							<div class="card-info-panel-icon"><img src="./assets/images/water.png" alt="" /></div>
+							<div class="card-info-panel-graphical hum1">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
@@ -181,44 +181,44 @@
 							</div>
 						</div>
 					</article>
-					<article class="card">
-						<div class="card-title"><span class="day">Fri</span><span class="separator">|</span><span class="date">1 Apr</span></div>
+					<article class="card" id="card2">
+						<div class="card-title"><span class="day">—</span><span class="separator">|</span><span class="date">—</span></div>
 						<div class="card-info">
-							<div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
-							<div class="card-info-panel-label">TEMP</div>
-							<div class="card-info-panel-numerical">15°C</div>
+							<div class="card-info-icon temp2"><img src="./assets/images/globe.ico" alt="" /></div>
+							<div class="card-info-panel-label temp2">TEMP</div>
+							<div class="card-info-panel-numerical temp2">15°C</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/temp.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="temp2graphical">
+							<div class="card-info-panel-graphical temp2">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">WIND</div>
-							<div class="card-info-panel-numerical">1kph</div>
+							<div class="card-info-panel-label wind2">WIND</div>
+							<div class="card-info-panel-numerical wind2">1kph</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/wind.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="wind2graphical">
+							<div class="card-info-panel-graphical wind2">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">UV</div>
-							<div class="card-info-panel-numerical">0.47</div>
+							<div class="card-info-panel-label uv2">UV</div>
+							<div class="card-info-panel-numerical uv2">0.47</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/uv.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="uv2graphical">
+							<div class="card-info-panel-graphical uv2">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">HUM</div>
-							<div class="card-info-panel-numerical">15°C</div>
+							<div class="card-info-panel-label hum2">HUM</div>
+							<div class="card-info-panel-numerical hum2">15°C</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/water.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="hum2graphical">
+							<div class="card-info-panel-graphical hum2">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
@@ -227,44 +227,44 @@
 							</div>
 						</div>
 					</article>
-					<article class="card">
-						<div class="card-title"><span class="day">Sat</span><span class="separator">|</span><span class="date">2 Apr</span></div>
+					<article class="card" id="card3">
+						<div class="card-title"><span class="day">—</span><span class="separator">|</span><span class="date">—</span></div>
 						<div class="card-info">
 							<div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
-							<div class="card-info-panel-label">TEMP</div>
-							<div class="card-info-panel-numerical">15°C</div>
+							<div class="card-info-panel-label temp3">TEMP</div>
+							<div class="card-info-panel-numerical temp3">15°C</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/temp.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="temp3graphical">
+							<div class="card-info-panel-graphical temp3">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">WIND</div>
-							<div class="card-info-panel-numerical">1kph</div>
+							<div class="card-info-panel-label wind3">WIND</div>
+							<div class="card-info-panel-numerical wind3">1kph</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/wind.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="wind3graphical">
+							<div class="card-info-panel-graphical wind3">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">UV</div>
-							<div class="card-info-panel-numerical">0.47</div>
+							<div class="card-info-panel-label uv3">UV</div>
+							<div class="card-info-panel-numerical uv3">0.47</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/uv.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="uv3graphical">
+							<div class="card-info-panel-graphical uv3">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">HUM</div>
-							<div class="card-info-panel-numerical">15°C</div>
+							<div class="card-info-panel-label hum3">HUM</div>
+							<div class="card-info-panel-numerical hum3">15°C</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/water.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="hum3graphical">
+							<div class="card-info-panel-graphical hum3">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
@@ -273,44 +273,44 @@
 							</div>
 						</div>
 					</article>
-					<article class="card">
-						<div class="card-title"><span class="day">Sun</span><span class="separator">|</span><span class="date">3 Apr</span></div>
+					<article class="card" id="card4">
+						<div class="card-title"><span class="day">—</span><span class="separator">|</span><span class="date">—</span></div>
 						<div class="card-info">
 							<div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
-							<div class="card-info-panel-label">TEMP</div>
-							<div class="card-info-panel-numerical">15°C</div>
+							<div class="card-info-panel-label temp4">TEMP</div>
+							<div class="card-info-panel-numerical temp4">15°C</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/temp.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="temp4graphical">
+							<div class="card-info-panel-graphical temp4">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">WIND</div>
-							<div class="card-info-panel-numerical">1kph</div>
+							<div class="card-info-panel-label wind4">WIND</div>
+							<div class="card-info-panel-numerical wind4">1kph</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/wind.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="wind4graphical">
+							<div class="card-info-panel-graphical wind4">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">UV</div>
-							<div class="card-info-panel-numerical">0.47</div>
+							<div class="card-info-panel-label uv4">UV</div>
+							<div class="card-info-panel-numerical uv4">0.47</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/uv.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="uv4graphical">
+							<div class="card-info-panel-graphical uv4">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">HUM</div>
-							<div class="card-info-panel-numerical">15°C</div>
+							<div class="card-info-panel-label hum4">HUM</div>
+							<div class="card-info-panel-numerical hum4">15°C</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/water.png" alt="" /></div>
-							<div class="card-info-panel-graphical" id="hum4graphical">
+							<div class="card-info-panel-graphical hum4">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
@@ -319,44 +319,44 @@
 							</div>
 						</div>
 					</article>
-					<article class="card">
-						<div class="card-title"><span class="day">Mon</span><span class="separator">|</span><span class="date">4 Apr</span></div>
+					<article class="card" id="card5">
+						<div class="card-title"><span class="day">—</span><span class="separator">|</span><span class="date">—</span></div>
 						<div class="card-info">
 							<div class="card-info-icon"><img src="./assets/images/globe.ico" alt="" /></div>
-							<div class="card-info-panel-label">TEMP</div>
-							<div class="card-info-panel-numerical">15°C</div>
+							<div class="card-info-panel-label temp5">TEMP</div>
+							<div class="card-info-panel-numerical temp5">15°C</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/temp.png" alt="" /></div>
-							<div class="card-info-panel-graphical">
+							<div class="card-info-panel-graphical temp5">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">WIND</div>
-							<div class="card-info-panel-numerical">1kph</div>
+							<div class="card-info-panel-label wind5">WIND</div>
+							<div class="card-info-panel-numerical wind5">1kph</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/wind.png" alt="" /></div>
-							<div class="card-info-panel-graphical">
+							<div class="card-info-panel-graphical wind5">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">UV</div>
-							<div class="card-info-panel-numerical">0.47</div>
+							<div class="card-info-panel-label uv5">UV</div>
+							<div class="card-info-panel-numerical uv5">0.47</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/uv.png" alt="" /></div>
-							<div class="card-info-panel-graphical">
+							<div class="card-info-panel-graphical uv5">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>
 							</div>
-							<div class="card-info-panel-label">HUM</div>
-							<div class="card-info-panel-numerical">15°C</div>
+							<div class="card-info-panel-label hum5">HUM</div>
+							<div class="card-info-panel-numerical hum5">15°C</div>
 							<div class="card-info-panel-icon"><img src="./assets/images/water.png" alt="" /></div>
-							<div class="card-info-panel-graphical">
+							<div class="card-info-panel-graphical hum5">
 								<div class="ball"></div>
 								<div class="ball"></div>
 								<div class="ball"></div>

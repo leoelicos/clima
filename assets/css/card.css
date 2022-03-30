@@ -81,21 +81,19 @@
 }
 
 .card-info-icon {
-	grid-column: 1/5;
+	/* grid-column: 1/5; */
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	flex: 1;
 }
 .card-info-icon img {
-	width: calc(min(8vh, 17vw));
+	width: 3vh;
 }
 
 /* weather stats */
-.card-info-panel-label {
-}
-.card-info-panel-numerical {
-}
+
 .card-info-panel-icon {
 	text-align: center;
 }
@@ -103,7 +101,7 @@
 	display: flex;
 }
 .ball {
-	background-color: white;
+	background-color: var(--tertiary);
 	border-radius: 50%;
 	width: calc(min(12px, 3vw));
 	height: calc(min(12px, 3vw));

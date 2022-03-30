@@ -28,3 +28,7 @@
 	background-color: rgba(0, 255, 0, 0.432) !important;
 	transition: background-color 0.3s ease-in;
 }
+
+.ballHighlight {
+	background-color: yellow !important;
+}

@@ -13,12 +13,18 @@ var option; // takes 4 values:option-temperature, option-wind, option-uv, option
 var graphs;
 var selectedGraph;
 
+var tempThreshold = [0, 10, 20, 30, 40];
+var windThreshold = [0, 10, 20, 30, 40];
+var uvThreshold = [0, 0.2, 0.4, 0.6, 0.8];
+var humidityThreshold = [0, 30, 50, 60, 70];
+
+var localDate;
+
 function init() {
 	getData();
 	addToggles();
 	// update the weather icons
 	// update the ball colors
-	// update the dates
 }
 
 function updateWeatherIcons() {
@@ -31,7 +37,55 @@ function updateWeatherIcons() {
 
 function updateBallColors() {}
 
-function updateDates() {}
+function updateDates() {
+	// today's date
+	var day = document.querySelector('.today .day');
+	day.textContent = moment.unix(localDate).format('ddd');
+	var date = document.querySelector('.today .date');
+	date.textContent = moment.unix(localDate).format('d MMM');
+
+	// dates
+	for (var i = 1; i <= 5; i++) {
+		day = document.querySelector(`#card${i} .day`);
+		day.textContent = moment.unix(localDate).add(i, 'days').format('ddd');
+		date = document.querySelector(`#card${i} .date`);
+		date.textContent = moment.unix(localDate).add(i, 'days').format('d MMM');
+	}
+}
+
+function updateTemperatures() {
+	// update numbers
+	document.querySelector(`.card-info-panel-numerical.temp0`).textContent = `${dailyTemp[0]}°C`;
+	document.querySelector(`.card-info-panel-numerical.temp1`).textContent = `${dailyTemp[1]}°C`;
+	document.querySelector(`.card-info-panel-numerical.temp2`).textContent = `${dailyTemp[2]}°C`;
+	document.querySelector(`.card-info-panel-numerical.temp3`).textContent = `${dailyTemp[3]}°C`;
+	document.querySelector(`.card-info-panel-numerical.temp4`).textContent = `${dailyTemp[4]}°C`;
+	document.querySelector(`.card-info-panel-numerical.temp5`).textContent = `${dailyTemp[5]}°C`;
+}
+function updateWinds() {
+	document.querySelector(`.card-info-panel-numerical.wind0`).textContent = `${dailyWind[0]}kph`;
+	document.querySelector(`.card-info-panel-numerical.wind1`).textContent = `${dailyWind[1]}kph`;
+	document.querySelector(`.card-info-panel-numerical.wind2`).textContent = `${dailyWind[2]}kph`;
+	document.querySelector(`.card-info-panel-numerical.wind3`).textContent = `${dailyWind[3]}kph`;
+	document.querySelector(`.card-info-panel-numerical.wind4`).textContent = `${dailyWind[4]}kph`;
+	document.querySelector(`.card-info-panel-numerical.wind5`).textContent = `${dailyWind[5]}kph`;
+}
+function updateUVs() {
+	document.querySelector(`.card-info-panel-numerical.uv0`).textContent = `0.${dailyUV[0]}`;
+	document.querySelector(`.card-info-panel-numerical.uv1`).textContent = `0.${dailyUV[1]}`;
+	document.querySelector(`.card-info-panel-numerical.uv2`).textContent = `0.${dailyUV[2]}`;
+	document.querySelector(`.card-info-panel-numerical.uv3`).textContent = `0.${dailyUV[3]}`;
+	document.querySelector(`.card-info-panel-numerical.uv4`).textContent = `0.${dailyUV[4]}`;
+	document.querySelector(`.card-info-panel-numerical.uv5`).textContent = `0.${dailyUV[5]}`;
+}
+function updateHumidities() {
+	document.querySelector(`.card-info-panel-numerical.hum0`).textContent = `${dailyHumidity[0]}%`;
+	document.querySelector(`.card-info-panel-numerical.hum1`).textContent = `${dailyHumidity[1]}%`;
+	document.querySelector(`.card-info-panel-numerical.hum2`).textContent = `${dailyHumidity[2]}%`;
+	document.querySelector(`.card-info-panel-numerical.hum3`).textContent = `${dailyHumidity[3]}%`;
+	document.querySelector(`.card-info-panel-numerical.hum4`).textContent = `${dailyHumidity[4]}%`;
+	document.querySelector(`.card-info-panel-numerical.hum5`).textContent = `${dailyHumidity[5]}%`;
+}
 
 // update graphs whenever window is resized
 // var object = document.querySelector('.graph-container');
@@ -72,9 +126,16 @@ function getData() {
 				dailyWind[i] = parseFloat(data.daily[i].wind_speed).toFixed(0);
 				dailyUV[i] = parseFloat(data.daily[i].uvi).toFixed(0);
 				dailyHumidity[i] = parseFloat(data.daily[i].humidity).toFixed(0);
+				localDate = parseFloat(data.daily[i].dt);
 			}
 
 			updateSelectedOption();
+			updateDates();
+			updateTemperatures();
+			updateWinds();
+			updateUVs();
+			updateHumidities();
+
 			renderGraph();
 		});
 }
