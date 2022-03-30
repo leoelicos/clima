@@ -22,9 +22,26 @@ var humidityThreshold = [0, 30, 50, 60, 70];
 var localDate;
 
 function init() {
+	rotateGlobe();
 	getData();
 	addToggles();
 }
+var rotated = false;
+function rotateGlobe() {
+	var globe = document.querySelector('.page-header-field-location-icon');
+
+	setInterval(() => {
+		var deg = rotated ? 0 : 66;
+		globe.style.webkitTransform = 'rotate(' + deg + 'deg)';
+		globe.style.mozTransform = 'rotate(' + deg + 'deg)';
+		globe.style.msTransform = 'rotate(' + deg + 'deg)';
+		globe.style.oTransform = 'rotate(' + deg + 'deg)';
+		globe.style.transform = 'rotate(' + deg + 'deg)';
+
+		rotated = !rotated;
+	}, 1000);
+}
+
 function updateDailyIcons() {
 	// today's weather icon
 	var imgEl = document.querySelector('.today .card-info-icon img');
