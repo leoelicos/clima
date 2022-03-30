@@ -2,26 +2,29 @@
 
 :root {
 	--primary: #a99eba;
-	--secondary: #513d6e;
-	--tertiary: #cbc5d4;
-	--quaternary: #63517d;
 	--primary-complement: #333b35;
-	/* --secondary-complement: #ffffff; */
+
+	--secondary: #513d6e;
+	--secondary-complement: #ffffff;
+
+	--tertiary: #cbc5d4;
 	--tertiary-complement: #101210;
+
+	--quaternary: #63517d;
 	--quaternary-complement: #ffffff;
+}
 
-	--accent-darkest: rgba(255, 255, 255, 10%);
-	--accent-darkest-text: #ffffff;
+.gray {
+	background-color: var(--primary) !important;
+	transition: background-color 0.3s ease-in;
+}
 
-	--accent-darker: #a99eba;
-	--accent-darker-text: #313833;
+.warning {
+	background-color: rgba(255, 0, 0, 0.432) !important;
+	transition: background-color 0.3s ease-in;
+}
 
-	--accent-lighter: rgba(255, 255, 255, 70%);
-	--accent-lighter-text: #333b35;
-
-	--header-bgcolor: var(--tertiary);
-	--header-titlecolor: var(--accent-lighter-text);
-
-	--graph: var(--accent-darker);
-	--graph-text: #ffc745;
+.highlight {
+	background-color: rgba(0, 255, 0, 0.432) !important;
+	transition: background-color 0.3s ease-in;
 }

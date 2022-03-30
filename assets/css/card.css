@@ -3,25 +3,24 @@
 :root {
 	/* 
 	"5-day forecast" */
-	--card-panel-sectiontitle-bgcolor: var(--accent-darker);
-	--card-panel-sectiontitle-color: var(--accent-darker-text);
+	--card-panel-sectiontitle-bgcolor: var(--primary);
+	--card-panel-sectiontitle-color: var(--primary-complement);
 	/* 
 	Mon | 28 Mar */
-	--card-panel-title-bgcolor: var(--accent-lighter);
-	--card-panel-title-color: var(--accent-lighter-text);
+	--card-panel-title-bgcolor: var(--tertiary);
+	--card-panel-title-color: var(--tertiary-complement);
 	/* 
 	TEMP WIND UV HUM */
-	--card-panel-info-bgcolor: var(--accent-darker);
-	--card-panel-info-color: var(--accent-darker-text);
+	--card-panel-info-bgcolor: var(--primary);
+	--card-panel-info-color: var(--primary-complement);
 }
 
 .cards-title {
+	flex: 0;
+	margin: 1vh 0;
 	/* '5-day forecast */
-	background-color: var(--secondary);
-	color: var(--accent-darkest-text);
+	color: var(--secondary-complement);
 	border-radius: 30px;
-	padding: 0.7vh 0 0.4vh;
-	margin-bottom: 1vh;
 
 	font-weight: bold;
 	display: flex;
@@ -41,19 +40,9 @@
 	justify-content: center;
 }
 
-.card:not(.today) {
-	/* each card card */
-	/* layout */
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	width: 300px;
-	margin: 0.5vh 0.5vw;
-}
 .card-title {
 	/* Layout - flex*/
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	/* Layout - box */
@@ -99,7 +88,7 @@
 	align-items: center;
 }
 .card-info-icon img {
-	width: 8vh;
+	width: calc(min(8vh, 17vw));
 }
 
 /* weather stats */
@@ -116,7 +105,7 @@
 .ball {
 	background-color: white;
 	border-radius: 50%;
-	width: 12px;
-	height: 12px;
+	width: calc(min(12px, 3vw));
+	height: calc(min(12px, 3vw));
 	margin-left: 1px;
 }

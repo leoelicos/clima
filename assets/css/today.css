@@ -1,10 +1,10 @@
 /* container for all the .today elements */
 .card-today {
 	flex: 1;
+	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	/* border: 1px dotted orange; */
 }
 
 .card-split {
@@ -22,11 +22,10 @@
 	font-size: calc(max(12px, 1vh));
 
 	/* Appearance */
-	background-color: var(--graph);
+	background-color: var(--primary);
 }
 
 .today .card {
-	/* border: 1px solid green; */
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -37,5 +36,11 @@
 
 .today .card-info {
 	grid-template-columns: repeat(8, auto);
-	grid-template-rows: repeat(4, auto);
+	grid-template-rows: repeat(1, auto);
+}
+
+.today .cards-title {
+	flex-direction: row;
+	justify-content: center;
+	color: var(--secondary-complement);
 }

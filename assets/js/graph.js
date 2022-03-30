@@ -13,12 +13,25 @@ var option; // takes 4 values:option-temperature, option-wind, option-uv, option
 var graphs;
 var selectedGraph;
 
-init();
-
 function init() {
 	getData();
 	addToggles();
+	// update the weather icons
+	// update the ball colors
+	// update the dates
 }
+
+function updateWeatherIcons() {
+	// if dangerous, 5 balls white
+	// if not dangerous, 5 balls gray
+	for (var i = 0; i < 6; i++) {
+		// if(dailyTemp[i])
+	}
+}
+
+function updateBallColors() {}
+
+function updateDates() {}
 
 // update graphs whenever window is resized
 // var object = document.querySelector('.graph-container');
@@ -42,7 +55,7 @@ function addToggles() {
 }
 
 function getData() {
-	fetch('https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,alerts,current&appid=19efebdbf2035141aa7986691561dc9f&units=metric&lang=en')
+	fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts,current&appid=19efebdbf2035141aa7986691561dc9f&units=metric&lang=en`)
 		.then((response) => {
 			return response.json();
 		})
@@ -115,8 +128,6 @@ function renderGraph() {
 	const heightOfMinLabel = 0;
 	var svgHeight = 80;
 
-	console.log(`${option} = ${arr}`);
-
 	// GRAPH
 
 	// labels
@@ -126,7 +137,7 @@ function renderGraph() {
 	var increment = 1;
 	var startLabel = 0;
 	if (svgWidth < 968) {
-		startLabel = 2;
+		startLabel = 1;
 		increment = 2;
 	}
 	if (svgWidth < 576) {
@@ -136,9 +147,9 @@ function renderGraph() {
 	for (var i = startLabel; i < 24; i += increment) {
 		var label = document.createElementNS(svgns, 'text');
 
-		label.setAttribute('x', xIncrement * (i + 1));
+		label.setAttribute('x', parseInt(xIncrement * (i + 1)));
 		label.setAttribute('y', svgHeight - scale(+arr[i], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfText);
-		label.textContent = arr[i].toString();
+		label.textContent = `${arr[i].toString()}`;
 
 		g.appendChild(label);
 	}
@@ -148,7 +159,7 @@ function renderGraph() {
 	var increment = 1;
 	var startLabel = 0;
 	if (svgWidth < 968) {
-		startLabel = 2;
+		startLabel = 1;
 		increment = 2;
 	}
 	if (svgWidth < 576) {
@@ -159,7 +170,7 @@ function renderGraph() {
 	var drawString = [];
 	drawString.push(` M 0 ${svgHeight - scale(+arr[0], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	for (var i = startLabel; i < 24; i += increment) {
-		drawString.push(` L ${(i + 1) * xIncrement} ${svgHeight - scale(+arr[i], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
+		drawString.push(` L ${parseInt((i + 1) * xIncrement)} ${svgHeight - scale(+arr[i], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	}
 	drawString.push(`L ${svgWidth - 1} ${svgHeight - scale(+arr[23], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	drawString.push(`L ${svgWidth - 1} ${svgHeight - baseline}`);
@@ -173,7 +184,7 @@ function renderGraph() {
 	var increment = 1;
 	var startLabel = 0;
 	if (svgWidth < 968) {
-		startLabel = 2;
+		startLabel = 1;
 		increment = 2;
 	}
 	if (svgWidth < 576) {
@@ -184,7 +195,7 @@ function renderGraph() {
 	var drawString = [];
 	drawString.push(` M 0 ${svgHeight - scale(+arr[0], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	for (var i = startLabel; i < 24; i += increment) {
-		drawString.push(` L ${(i + 1) * xIncrement} ${svgHeight - scale(+arr[i], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
+		drawString.push(` L ${parseInt((i + 1) * xIncrement)} ${svgHeight - scale(+arr[i], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	}
 	drawString.push(`L ${svgWidth} ${svgHeight - scale(+arr[23], ymin, ymax, heightOfMinLabel, heightOfMaxLabel) - heightOfGraph}`);
 	drawString = drawString.join(' ');
@@ -204,7 +215,7 @@ function renderGraph() {
 	var increment = 1;
 
 	if (svgWidth < 968) {
-		startTick = 2;
+		startTick = 1;
 		increment = 2;
 	}
 	if (svgWidth < 576) {
@@ -213,8 +224,8 @@ function renderGraph() {
 	}
 	for (var i = startTick; i < 24; i += increment) {
 		var tick = document.createElementNS(svgns, 'text');
-		tick.setAttribute('x', xIncrement * (i + 1));
-		tick.setAttribute('y', svgHeight - tickHeight);
+		tick.setAttribute('x', parseInt(xIncrement * (i + 1)));
+		tick.setAttribute('y', svgHeight - tickHeight - 2);
 		tick.textContent = moment(i, 'h').format('h\na');
 		g.appendChild(tick);
 	}
@@ -243,5 +254,5 @@ function getMin(arr) {
 
 // map a range of numbers to another range of numbers
 const scale = (num, in_min, in_max, out_min, out_max) => {
-	return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+	return parseInt(((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min);
 };

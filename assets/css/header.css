@@ -1,95 +1,189 @@
+.page-header {
+	justify-content: space-evenly;
+}
 .page-header-title {
 	margin: 1vh 1vw;
 	flex: 0;
-}
-.page-header-title h1 {
-	font-size: calc(max(18px, 2vw));
-	font-weight: normal;
+
+	font-size: 30px;
+	font-weight: bold;
 	letter-spacing: calc(max(1px, 0.1vw));
 	white-space: nowrap;
-}
-.page-header-fieldset {
-	font-size: 12px;
-	font-weight: bold;
-	height: 100%;
-	flex: 1;
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
-	margin: 1vh 1vw;
-}
-
-.page-header-field-location {
-	margin: 1vh 1vw;
-	height: 100%;
-	display: flex;
-	align-items: stretch;
-	justify-content: center;
 }
 .page-header-field-location-icon {
-	height: 100%;
+	height: 10vh;
+	border-radius: 50%;
+	box-shadow: 0px 0px 3px 4px var(--secondary);
+	transform: rotate(-7200deg);
+	transition: transform 360s linear;
+	display: inline-block;
+}
+.boxset {
 	display: flex;
-	flex-direction: column;
+}
+
+.page-header-fieldset {
+	width: 100%;
+	display: flex;
 	align-items: center;
 	justify-content: center;
 }
-.page-header-field-location-icon img {
-	width: 3.5vh;
-}
-.page-header-field-location-label {
-	margin: 0 0.4vw;
+.page-header-field-location {
+	width: 100%;
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	font-size: calc(max(12px, 1.5vw));
-	font-weight: bold;
 }
 .page-header-field-location-search {
+	width: 100%;
+}
+
+.form-select {
+	flex: 1;
+}
+.boxset {
+	width: 100%;
+}
+form {
+	width: 70%;
+}
+@media screen and (max-width: 1200px) {
+	.boxset {
+		flex-direction: column;
+	}
+}
+@media screen and (max-width: 992px) {
+	.page-header {
+		display: flex;
+	}
+	.page-header-title {
+		font-size: 24px;
+	}
+
+	.boxset {
+		width: 100%;
+	}
+	form {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.page-header {
+		flex-direction: column;
+	}
+	.page-header-title {
+		font-size: 20px;
+	}
+
+	.page-header-field-location-icon {
+		height: 20vh;
+		margin-top: -10vh;
+	}
+	.page-header-title {
+		margin: 1vh 0;
+	}
+	.boxset {
+		width: 100%;
+	}
+	form {
+		width: 90%;
+	}
+	input {
+		flex: 1;
+	}
+}
+
+.search-container {
+	flex: 2;
 	display: flex;
-	flex-direction: column;
+	position: relative;
+	padding: 0.375rem 0;
+}
+
+.page-header-field-location-search {
+	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
 }
 .page-header-field-location-search input {
+	width: 100%;
 	border-radius: 4vh;
-	padding: 0.5vh;
+
+	padding: 0.375rem 0;
+
 	/* height: 100%; */
 	border: 0;
-	line-height: 1;
+	line-height: 1.15;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	font-size: calc(max(12px, 1vh));
 	font-weight: bold;
-	width: calc(max(300px, 3vw));
-	font-size: calc(max(12px, 1.5vw));
+	font-size: 18px;
 	font-weight: bold;
+	transition: background-color 0.3s ease-in;
 }
+
 .page-header-field-location-search input:focus-visible {
 	outline: none;
 }
 .page-header-field-location-search input::placeholder {
 	margin: 0;
 	line-height: 1;
-	font-size: calc(min(max(12px, 1.5vw), 2.5vh));
+	font-size: 18px;
 	font-weight: bold;
 }
-.page-header-field-time {
-	color: #101210;
-	background-color: rgba(255, 255, 255, 50%);
-	border-radius: 4vh;
+input:focus::placeholder {
+	color: transparent;
+}
+
+.search-container #searchBtn {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0;
+}
+.page-header-field-location-search #searchBtn {
+	background-color: var(primary);
+	color: var(--primary-complement);
+	transition: background-color 0.1s ease-in;
+	transition: color 0.1s ease-in;
+	border: none;
+	border-radius: 50%;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: calc(min(max(12px, 1.5vw), 2.5vh));
+	font-size: 18px;
 	font-weight: bold;
-	padding: 0.5vh 1vw;
+	padding: 6px;
 	white-space: nowrap;
 
-	margin: 1vh 1vw;
+	margin: 0 2px;
+	cursor: pointer;
+}
+
+#searchBtn:hover {
+	background-color: var(--secondary);
+	color: var(--secondary-complement);
+	transition: background-color 0.1s ease-in;
+	transition: color 0.1s ease-in;
+}
+
+select {
+	cursor: pointer;
+}
+
+.cityNameLabel {
+	text-align: center;
+	font-size: 5vh;
+	color: var(--tertiary-complement);
+	background-color: var(--tertiary);
+	padding: 1vh 1vw;
+	font-weight: bold;
 }
