@@ -19,7 +19,7 @@ var windThreshold = [0, 10, 20, 30, 40];
 var uvThreshold = [0, 2, 4, 6, 8];
 var humidityThreshold = [0, 30, 50, 60, 70];
 
-var localDate;
+var localDates = [];
 
 function init() {
 	rotateGlobe();
@@ -58,16 +58,16 @@ function updateBallColors() {}
 function updateDates() {
 	// today's date
 	var day = document.querySelector('.today .day');
-	day.textContent = moment.unix(localDate).format('ddd');
+	day.textContent = moment.unix(localDates[0]).format('ddd');
 	var date = document.querySelector('.today .date');
-	date.textContent = moment.unix(localDate).format('d MMM');
+	date.textContent = moment.unix(localDates[0]).format('D MMM');
 
 	// dates
 	for (var i = 1; i <= 5; i++) {
 		day = document.querySelector(`#card${i} .day`);
-		day.textContent = moment.unix(localDate).add(i, 'days').format('ddd');
+		day.textContent = moment.unix(localDates[i]).format('ddd');
 		date = document.querySelector(`#card${i} .date`);
-		date.textContent = moment.unix(localDate).add(i, 'days').format('d MMM');
+		date.textContent = moment.unix(localDates[i]).format('D MMM');
 	}
 }
 
@@ -190,9 +190,8 @@ function getData() {
 				dailyHumidity[i] = parseFloat(data.daily[i].humidity).toFixed(0);
 				dailyWeatherIcons[i] = data.daily[i].weather[0].icon;
 				// console.log(`Downloaded day${i} icon = ${dailyWeatherIcons[i]}`);
-				localDate = parseFloat(data.daily[i].dt);
+				localDates[i] = data.daily[i].dt;
 			}
-
 			updateSelectedOption();
 			updateDates();
 			updateTemperatures();
