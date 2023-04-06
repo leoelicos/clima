@@ -1,34 +1,32 @@
-/* This document contains CSS property literals for all colors used in the Weather Dashboard */
-
 :root {
-	--primary: #a99eba;
-	--primary-complement: #333b35;
+  --primary: #a99eba;
+  --primary-complement: #333b35;
 
-	--secondary: #513d6e;
-	--secondary-complement: #ffffff;
+  --secondary: #513d6e;
+  --secondary-complement: #ffffff;
 
-	--tertiary: #cbc5d4;
-	--tertiary-complement: #101210;
+  --tertiary: #cbc5d4;
+  --tertiary-complement: #101210;
 
-	--quaternary: #63517d;
-	--quaternary-complement: #ffffff;
+  --quaternary: #63517d;
+  --quaternary-complement: #ffffff;
 }
 
 .gray {
-	background-color: var(--primary) !important;
-	transition: background-color 0.3s ease-in;
+  background-color: var(--primary) !important;
+  transition: background-color 0.3s ease-in;
 }
 
 .warning {
-	background-color: rgba(255, 0, 0, 0.432) !important;
-	transition: background-color 0.3s ease-in;
+  background-color: rgba(255, 0, 0, 0.432) !important;
+  transition: background-color 0.3s ease-in;
 }
 
 .highlight {
-	background-color: rgba(0, 255, 0, 0.432) !important;
-	transition: background-color 0.3s ease-in;
+  background-color: rgba(0, 255, 0, 0.432) !important;
+  transition: background-color 0.3s ease-in;
 }
 
 .ballHighlight {
-	background-color: yellow !important;
+  background-color: yellow !important;
 }
