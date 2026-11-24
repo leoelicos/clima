@@ -1,5 +1,6 @@
 import { toDaily } from './forecast'
-import type { AirQuality, Condition, Current, Hourly, Place, WeatherReport } from './types'
+import type { AirQuality, Condition, Current, Hourly, Place, UvReport, WeatherReport } from './types'
+import { normaliseUv, openMeteoUrl, uvAt, type RawOpenMeteo } from './uv'
 
 const BASE = 'https://api.openweathermap.org'
 
@@ -177,6 +178,7 @@ export function normaliseHourly(raw: RawForecastItem): Hourly {
     humidity: raw.main.humidity,
     isDay: raw.sys?.pod ? raw.sys.pod === 'd' : condition.icon.endsWith('d'),
     condition,
+    uvi: null,
   }
 }
 
@@ -212,17 +214,46 @@ export async function reverseGeocode(lat: number, lon: number, { key, signal, fe
 }
 
 /**
+ * UV index from Open-Meteo (free, keyless, CORS-enabled, CC BY 4.0).
+ * OpenWeather's free APIs don't include UV.
+ */
+export async function fetchOpenMeteoUv(place: Place, { signal, fetcher = fetch }: Omit<ApiOptions, 'key'>): Promise<RawOpenMeteo> {
+  const res = await fetcher(openMeteoUrl(place.lat, place.lon), signal ? { signal } : undefined)
+  if (!res.ok) throw new ApiError(res.status === 429 ? 'rate-limited' : 'server', `Open-Meteo ${res.status}`, res.status)
+  return (await res.json()) as RawOpenMeteo
+}
+
+/** Adds UV values onto hourly steps and daily rows. */
+export function mergeUv(report: WeatherReport, uv: UvReport | null): WeatherReport {
+  if (!uv) return report
+  return {
+    ...report,
+    uv,
+    hourly: report.hourly.map((h) => ({ ...h, uvi: uvAt(uv.hourly, h.dt) })),
+    daily: report.daily.map((d) => ({ ...d, uvMax: uv.dailyMax[d.date] ?? null })),
+  }
+}
+
+const isAbort = (err: unknown) => err instanceof DOMException && err.name === 'AbortError'
+
+/**
  * Fetches current conditions, the 5 day / 3 hour forecast and air quality in parallel.
  * Uses the free 2.5 endpoints (the legacy One Call 2.5 API the original app used was retired in 2024).
  */
 export async function fetchWeather(place: Place, { key, signal, fetcher }: ApiOptions): Promise<WeatherReport> {
   const coords = { lat: place.lat, lon: place.lon }
-  const [current, forecast, air] = await Promise.all([
+  const [current, forecast, air, uvRaw] = await Promise.all([
     request<RawCurrent>('/data/2.5/weather', { ...coords, units: 'metric' }, key, signal, fetcher),
     request<RawForecast>('/data/2.5/forecast', { ...coords, units: 'metric' }, key, signal, fetcher),
     // Air quality is a nice-to-have: never fail the whole report because of it.
     request<RawAir>('/data/2.5/air_pollution', coords, key, signal, fetcher).catch((err: unknown) => {
-      if (err instanceof DOMException && err.name === 'AbortError') throw err
+      if (isAbort(err)) throw err
+      return null
+    }),
+    // Raw Open-Meteo payload; normalised below once we know OpenWeather's clock.
+    fetchOpenMeteoUv(place, { ...(signal ? { signal } : {}), ...(fetcher ? { fetcher } : {}) }).catch((err: unknown) => {
+      // UV is a nice-to-have too: a failure just hides the UV UI.
+      if (isAbort(err)) throw err
       return null
     }),
   ])
@@ -230,13 +261,15 @@ export async function fetchWeather(place: Place, { key, signal, fetcher }: ApiOp
   const timezone = current.timezone ?? forecast.city.timezone
   const normalisedCurrent = normaliseCurrent(current)
   const hourly = forecast.list.map(normaliseHourly)
-  return {
+  const report: WeatherReport = {
     place,
     timezone,
     current: normalisedCurrent,
     hourly,
     daily: toDaily(hourly, timezone, normalisedCurrent),
     air: air ? normaliseAir(air) : null,
+    uv: null,
     fetchedAt: Date.now(),
   }
+  return mergeUv(report, uvRaw ? normaliseUv(uvRaw, timezone, normalisedCurrent.dt) : null)
 }

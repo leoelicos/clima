@@ -52,6 +52,8 @@ export interface Hourly {
   humidity: number
   isDay: boolean
   condition: Condition
+  /** UV index at this step (from Open-Meteo), null when unavailable */
+  uvi: number | null
 }
 
 export interface Daily {
@@ -64,6 +66,8 @@ export interface Daily {
   pop: number
   precip: number
   condition: Condition
+  /** Forecast daily maximum UV index, null when unavailable */
+  uvMax: number | null
 }
 
 export interface AirQuality {
@@ -83,8 +87,38 @@ export interface WeatherReport {
   hourly: Hourly[]
   daily: Daily[]
   air: AirQuality | null
+  uv: UvReport | null
   fetchedAt: number
 }
 
 export type Units = 'metric' | 'imperial'
 export type ThemePref = 'system' | 'light' | 'dark'
+
+/** One hourly UV observation/forecast point. */
+export interface UvPoint {
+  dt: number
+  uvi: number
+}
+
+/** A stretch of the day when UV is at or above 3 and sun protection is recommended. */
+export interface ProtectionWindow {
+  /** local date key the window belongs to */
+  date: string
+  from: number
+  to: number
+  peak: UvPoint
+}
+
+export interface UvReport {
+  now: number
+  /** hourly points, oldest first */
+  hourly: UvPoint[]
+  /** local date key → daily max */
+  dailyMax: Record<string, number>
+  /** peak for the place's current calendar day */
+  todayPeak: UvPoint | null
+  /** today's protection window, if UV reaches 3 */
+  today: ProtectionWindow | null
+  /** tomorrow's protection window, used once today's has passed */
+  tomorrow: ProtectionWindow | null
+}

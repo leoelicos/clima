@@ -59,6 +59,7 @@ export function toDaily(hourly: Hourly[], timezone: number, current?: Current): 
       pop: Math.max(...items.map((h) => h.pop)),
       precip: items.reduce((sum, h) => sum + h.precip, 0),
       condition: representativeCondition(items),
+      uvMax: null,
     })
   }
 

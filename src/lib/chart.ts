@@ -1,5 +1,6 @@
 import { formatTime } from './time'
 import { percent, temp, tempUnit } from './units'
+import { roundUv, uvBand } from './uv'
 import type { Hourly, Units } from './types'
 
 /** Catmull-Rom → cubic Bézier for a smooth line through every point. */
@@ -30,5 +31,10 @@ export function describeHourly(steps: Hourly[], timezone: number, units: Units):
   const u = tempUnit(units)
   let s = `Over the next ${steps.length * 3 - 3} hours temperatures range from ${temp(coldest.temp, units)}${u} at ${formatTime(coldest.dt, timezone)} to ${temp(hottest.temp, units)}${u} at ${formatTime(hottest.dt, timezone)}.`
   s += wettest.pop >= 0.1 ? ` Highest chance of rain is ${percent(wettest.pop)}% at ${formatTime(wettest.dt, timezone)}.` : ' Little to no rain expected.'
+  const withUv = steps.filter((h): h is Hourly & { uvi: number } => h.uvi !== null)
+  if (withUv.length) {
+    const sunniest = withUv.reduce((a, b) => (b.uvi > a.uvi ? b : a))
+    s += roundUv(sunniest.uvi) >= 1 ? ` UV peaks at ${roundUv(sunniest.uvi)} (${uvBand(sunniest.uvi).label.toLowerCase()}) at ${formatTime(sunniest.dt, timezone)}.` : ' UV stays low.'
+  }
   return s
 }
