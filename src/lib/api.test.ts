@@ -34,6 +34,24 @@ describe('api', () => {
     expect(report.air).toEqual(normaliseAir(airSydney))
   })
 
+  it('merges Open-Meteo UV into the report without needing a key for it', async () => {
+    const fetcher = vi.fn<typeof fetch>(mockOpenWeather())
+    const report = await fetchWeather(sydney, { key: 'k', fetcher })
+    const uvCall = fetcher.mock.calls.map(([u]) => new URL(String(u))).find((u) => u.hostname === 'api.open-meteo.com')!
+    expect(uvCall.searchParams.has('appid')).toBe(false)
+    expect(report.uv).not.toBeNull()
+    expect(report.hourly.every((h) => typeof h.uvi === 'number')).toBe(true)
+    expect(report.daily.slice(0, 5).every((d) => typeof d.uvMax === 'number')).toBe(true)
+  })
+
+  it('still returns a report when UV fails', async () => {
+    const fetcher = mockOpenWeather({ uv: () => jsonResponse({ error: true }, 429) })
+    const report = await fetchWeather(sydney, { key: 'k', fetcher })
+    expect(report.uv).toBeNull()
+    expect(report.hourly[0]!.uvi).toBeNull()
+    expect(report.daily[0]!.uvMax).toBeNull()
+  })
+
   it('still returns a report when air quality fails', async () => {
     const fetcher = mockOpenWeather({ air: () => jsonResponse({}, 500) })
     const report = await fetchWeather(sydney, { key: 'k', fetcher })

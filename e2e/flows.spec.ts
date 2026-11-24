@@ -50,3 +50,23 @@ test('no horizontal page overflow', async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
   expect(overflow).toBeLessThanOrEqual(0)
 })
+
+test('UV index and sun protection guidance are shown and keyboard operable', async ({ page }) => {
+  await seed(page, { history: true })
+  await page.goto('./')
+  await expect(page.getByRole('heading', { name: 'UV index' })).toBeVisible()
+  const sun = page.getByRole('region', { name: /sun protection/i })
+  await expect(sun).toContainText(/recommended now, until 6:\d\d PM/i)
+  const summary = sun.getByText(/how to protect yourself/i)
+  await summary.focus()
+  await page.keyboard.press('Enter')
+  await expect(sun.getByRole('list', { name: /five sunsmart steps/i })).toBeVisible()
+})
+
+test('dashboard still works when Open-Meteo is down', async ({ page }) => {
+  await seed(page, { history: true })
+  await page.route('https://api.open-meteo.com/**', (route) => route.fulfill({ status: 503, body: 'down' }))
+  await page.goto('./')
+  await expect(page.getByRole('heading', { level: 2, name: /^Sydney/ })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'UV index' })).toHaveCount(0)
+})

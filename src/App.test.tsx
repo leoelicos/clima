@@ -67,6 +67,37 @@ describe('App', () => {
     await expectNoAxeViolations()
   })
 
+  it('shows UV, sun protection guidance and the SunSmart steps', async () => {
+    const user = userEvent.setup()
+    saveApiKey(KEY)
+    saveHistory([sydney])
+    render(<App />)
+    const tile = (await screen.findByRole('heading', { name: 'UV index' })).closest('li')!
+    expect(within(tile).getByText(/Very high|High/)).toBeInTheDocument()
+    expect(within(tile).getByText(/Today’s peak was 9 at 1:00/i)).toBeInTheDocument()
+
+    const sun = screen.getByRole('region', { name: /sun protection/i })
+    expect(within(sun).getByText(/recommended now, until 6:\d\d PM/i)).toBeInTheDocument()
+    expect(within(sun).getByText(/Peak UV 9/)).toBeInTheDocument()
+    await user.click(within(sun).getByText(/how to protect yourself/i))
+    expect(within(sun).getByRole('list', { name: /five sunsmart steps/i })).toHaveTextContent(/Slip.*Slop.*Slap.*Seek.*Slide/)
+
+    expect(screen.getAllByText(/UV index up to \d+, (very high|high|moderate)/i).length).toBeGreaterThanOrEqual(5)
+    expect(screen.getByRole('link', { name: /open-meteo/i })).toHaveAttribute('href', 'https://open-meteo.com/')
+    expect(screen.getByRole('img', { name: /uv peaks at/i })).toBeInTheDocument()
+    await expectNoAxeViolations()
+  })
+
+  it('hides UV gracefully when Open-Meteo is unavailable', async () => {
+    saveApiKey(KEY)
+    saveHistory([sydney])
+    vi.stubGlobal('fetch', vi.fn(mockOpenWeather({ uv: () => jsonResponse({}, 500) })))
+    render(<App />)
+    await screen.findByText('24 degrees Celsius')
+    expect(screen.queryByRole('heading', { name: 'UV index' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('region', { name: /sun protection/i })).not.toBeInTheDocument()
+  })
+
   it('switches units and offers the chart as a data table', async () => {
     const user = userEvent.setup()
     saveApiKey(KEY)
@@ -82,6 +113,7 @@ describe('App', () => {
     const table = screen.getByRole('table')
     expect(within(table).getAllByRole('row')).toHaveLength(10)
     expect(within(table).getByRole('columnheader', { name: 'Temp (°F)' })).toBeInTheDocument()
+    expect(within(table).getByRole('columnheader', { name: 'UV index' })).toBeInTheDocument()
     await expectNoAxeViolations()
   })
 

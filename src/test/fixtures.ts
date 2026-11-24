@@ -50,14 +50,38 @@ export const airSydney = {
   list: [{ main: { aqi: 2 }, components: { pm2_5: 8.4, pm10: 14.1, o3: 61, no2: 9 } }],
 }
 
+/** Open-Meteo UV payload (timeformat=unixtime, timezone=auto, past_days=1, forecast_days=6). */
+const midnightToday = Math.floor((NOW + TZ) / 86_400) * 86_400 - TZ
+export const uvCurve = (localHour: number, dayIndex = 0) =>
+  Math.max(0, Math.round((9.2 - dayIndex * 0.4) * Math.sin((Math.PI * (localHour - 6.3)) / 13.5) * 100) / 100)
+
+export const openMeteoSydney = {
+  utc_offset_seconds: TZ,
+  current: { time: NOW - 1200, uv_index: uvCurve(14.33) },
+  hourly: (() => {
+    const time: number[] = []
+    const uv_index: number[] = []
+    for (let i = -24; i < 24 * 6; i++) {
+      time.push(midnightToday + i * 3600)
+      uv_index.push(uvCurve(((i % 24) + 24) % 24, Math.max(0, Math.floor(i / 24))))
+    }
+    return { time, uv_index }
+  })(),
+  daily: {
+    time: Array.from({ length: 7 }, (_, d) => midnightToday + (d - 1) * 86_400),
+    uv_index_max: Array.from({ length: 7 }, (_, d) => uvCurve(13.05, Math.max(0, d - 1))),
+  },
+}
+
 export const jsonResponse = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } })
 
 /** Minimal router standing in for api.openweathermap.org. */
-export function mockOpenWeather(overrides: Partial<Record<'geo' | 'weather' | 'forecast' | 'air', () => Response>> = {}) {
+export function mockOpenWeather(overrides: Partial<Record<'geo' | 'weather' | 'forecast' | 'air' | 'uv', () => Response>> = {}) {
   const json = jsonResponse
   return async (input: RequestInfo | URL): Promise<Response> => {
     const url = new URL(input instanceof Request ? input.url : String(input))
+    if (url.hostname === 'api.open-meteo.com') return overrides.uv?.() ?? json(openMeteoSydney)
     if (url.pathname.startsWith('/geo/1.0/direct')) return overrides.geo?.() ?? json(url.searchParams.get('q')?.toLowerCase().startsWith('syd') ? sydneyGeo : [])
     if (url.pathname.startsWith('/geo/1.0/reverse')) return json(sydneyGeo.slice(0, 1))
     if (url.pathname === '/data/2.5/weather') return overrides.weather?.() ?? json(currentSydney)

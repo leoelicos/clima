@@ -1,9 +1,9 @@
 import type { Page } from '@playwright/test'
-import { airSydney, currentSydney, forecastSydney, sydneyGeo } from '../src/test/fixtures.ts'
+import { airSydney, currentSydney, forecastSydney, openMeteoSydney, sydneyGeo } from '../src/test/fixtures.ts'
 
 export const TEST_KEY = '0123456789abcdef0123456789abcdef'
 
-/** Serves OpenWeather fixtures so e2e runs are deterministic and need no real key. */
+/** Serves OpenWeather and Open-Meteo fixtures so e2e runs are deterministic and need no real key. */
 export async function mockApi(page: Page) {
   await page.route('https://api.openweathermap.org/**', async (route) => {
     const url = new URL(route.request().url())
@@ -22,6 +22,7 @@ export async function mockApi(page: Page) {
               : null
     await route.fulfill({ status: body ? 200 : 404, json: body ?? { message: 'not found' } })
   })
+  await page.route('https://api.open-meteo.com/**', (route) => route.fulfill({ json: openMeteoSydney }))
 }
 
 export async function seed(page: Page, opts: { key?: boolean; theme?: 'light' | 'dark'; history?: boolean } = {}) {

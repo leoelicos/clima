@@ -13,6 +13,8 @@ for (const theme of ['light', 'dark'] as const) {
       await seed(page, { theme, history: true })
       await page.goto('./')
       await expect(page.getByRole('heading', { level: 2, name: /^Sydney/ })).toBeVisible()
+      await page.getByText(/how to protect yourself/i).click()
+      await page.getByRole('button', { name: /show as table/i }).click()
       const results = await new AxeBuilder({ page }).withTags(TAGS).analyze()
       expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([])
     })
