@@ -1,0 +1,91 @@
+.state {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  padding-block: clamp(2rem, 6vw, 4rem);
+  text-align: center;
+}
+.state-icon {
+  color: var(--accent);
+}
+.state-error .state-icon {
+  color: var(--danger);
+}
+.state-title {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+}
+.state-empty .state-title {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+}
+.state-detail {
+  max-inline-size: 46ch;
+  color: var(--muted);
+}
+.state-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-block-start: 0.5rem;
+}
+.empty-art {
+  filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.25));
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.chip {
+  min-block-size: 2.5rem;
+  padding: 0 1.1rem;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), translate 0.2s var(--ease);
+}
+.chip:hover {
+  border-color: var(--accent);
+  translate: 0 -2px;
+}
+
+/* Skeletons */
+.state-loading {
+  display: grid;
+  gap: 1.25rem;
+}
+.skeleton {
+  border-radius: var(--radius);
+  background: linear-gradient(100deg, var(--surface-2) 30%, var(--surface) 50%, var(--surface-2) 70%) 0 0 / 300% 100%;
+  border: 1px solid var(--line);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton {
+    animation: shimmer 1.4s linear infinite;
+  }
+}
+.skeleton-hero {
+  block-size: 280px;
+}
+.skeleton-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.25rem;
+}
+.skeleton-card {
+  block-size: 140px;
+}
+.skeleton-chart {
+  block-size: 260px;
+}
+@keyframes shimmer {
+  to {
+    background-position: -150% 0;
+  }
+}

@@ -1,0 +1,124 @@
+.wi {
+  overflow: visible;
+  flex: none;
+}
+.wi-sun-core {
+  fill: var(--sun);
+}
+.wi-rays line {
+  stroke: var(--sun);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+.wi-moon path {
+  fill: var(--moon);
+}
+.wi-star {
+  fill: var(--moon);
+}
+.wi-cloud {
+  fill: var(--cloud);
+  stroke: var(--cloud-edge);
+  stroke-width: 1.5;
+}
+.wi-cloud-dark {
+  fill: var(--cloud-dark);
+}
+.wi-drops line {
+  stroke: var(--rain);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.wi-flakes circle {
+  fill: var(--snow);
+  stroke: var(--cloud-edge);
+  stroke-width: 0.75;
+}
+.wi-bolt {
+  fill: var(--sun);
+  stroke: var(--bolt-edge);
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+.wi-fog line {
+  stroke: var(--cloud-edge);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wi-animated .wi-rays {
+    transform-origin: 32px 32px;
+    animation: wi-spin 24s linear infinite;
+  }
+  .wi-animated .wi-cloud {
+    animation: wi-drift 6s ease-in-out infinite alternate;
+  }
+  .wi-animated .wi-drops line {
+    animation: wi-fall 1.1s linear infinite;
+  }
+  .wi-animated .wi-flakes circle {
+    animation: wi-snow 2.4s ease-in-out infinite;
+  }
+  .wi-animated .wi-bolt {
+    animation: wi-flash 3.2s steps(1) infinite;
+  }
+  .wi-animated .wi-star {
+    animation: wi-twinkle 3s ease-in-out infinite alternate;
+  }
+  .wi-animated .wi-star-2 {
+    animation-delay: 1.4s;
+  }
+  .wi-animated .wi-fog line {
+    animation: wi-drift 4s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes wi-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes wi-drift {
+  to {
+    translate: 2px 0;
+  }
+}
+@keyframes wi-fall {
+  from {
+    translate: 0 -4px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    translate: -2px 6px;
+    opacity: 0;
+  }
+}
+@keyframes wi-snow {
+  0%,
+  100% {
+    translate: 0 -3px;
+  }
+  50% {
+    translate: 2px 3px;
+  }
+}
+@keyframes wi-flash {
+  0%,
+  88%,
+  94% {
+    opacity: 1;
+  }
+  90%,
+  96% {
+    opacity: 0.25;
+  }
+}
+@keyframes wi-twinkle {
+  to {
+    opacity: 0.3;
+  }
+}

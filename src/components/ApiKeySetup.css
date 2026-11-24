@@ -1,0 +1,28 @@
+.setup {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  max-inline-size: 640px;
+  margin-inline: auto;
+  margin-block-start: clamp(1rem, 6vw, 4rem);
+}
+.setup .state-detail {
+  color: var(--muted);
+}
+.setup a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.setup-form {
+  inline-size: 100%;
+  margin-block-start: 0.5rem;
+}
+.setup-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.setup-row .field {
+  flex: 1 1 260px;
+}
