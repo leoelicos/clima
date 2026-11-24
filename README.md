@@ -6,7 +6,7 @@
 ![Vite 8](https://img.shields.io/badge/Vite-8-646cff?logo=vite&logoColor=white)
 ![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-2fb36b)
 
-A fast, accessible weather dashboard. Search any city and get current conditions, a 24-hour chart, a 5-day forecast, wind, sun, humidity, air quality, visibility and pressure, in a sky that changes with the weather.
+A fast, accessible weather dashboard. Search any city and get current conditions, a 24-hour chart, a 5-day forecast, UV index with sun protection times, wind, sun, humidity, air quality, visibility and pressure, in a sky that changes with the weather.
 
 **Live:** [leoelicos.github.io/clima](https://leoelicos.github.io/clima/)
 
@@ -29,7 +29,8 @@ A fast, accessible weather dashboard. Search any city and get current conditions
 - **Current conditions** in the place's own local time, with feels-like, high/low and a plain-English summary.
 - **24-hour chart**: a hand-built SVG with temperature curve, rain chance bars and a text summary, plus a **data table view**.
 - **5-day forecast** with temperature range bars scaled across the week.
-- **Highlights**: wind compass, sun arc, humidity, air quality (AQI), visibility and pressure.
+- **UV index and sun protection**: current UV on a WHO-coloured scale, today's peak, UV in the hourly chart, table and 5-day forecast, and SunSmart-style protection times ("Sun protection recommended from 7:44 am to 6:21 pm") interpolated from hourly data, with the five Ss (slip, slop, slap, seek, slide). When today's window has passed it shows tomorrow's.
+- **Highlights**: wind compass, sun arc, UV, humidity, air quality (AQI), visibility and pressure.
 - **Animated weather icons** and a sky that shifts with the weather and time of day. All motion respects `prefers-reduced-motion`.
 - **Solid states**: skeleton loading, friendly errors with retry (bad key, rate limit, offline, server), empty state with suggestions.
 - 10-minute in-memory cache and request cancellation, so switching cities is instant and never shows stale data.
@@ -39,6 +40,7 @@ A fast, accessible weather dashboard. Search any city and get current conditions
 - Landmarks (`header`, `search`, `nav`, `main`, `footer`), a skip link and a logical heading outline.
 - Every control is reachable and usable with a keyboard; focus is always visible (3px high-contrast ring) and never hidden behind the sticky header (2.4.11).
 - Colour contrast meets AA in both themes, checked by axe against real rendering in Playwright.
+- UV levels are always given as text ("9, very high"); the WHO colours are only a supplement.
 - Charts and icons have text alternatives: the hourly chart has a written summary and a data table; values are announced with units ("24 degrees Celsius", "from the northeast").
 - Search results, loading and errors use live regions (4.1.3 Status Messages).
 - Targets are at least 24×24px (2.5.8); native radio groups for toggles; works in Windows forced-colours mode.
@@ -107,7 +109,9 @@ Import the repo at [vercel.com/new](https://vercel.com/new) (framework preset: V
 
 ## Data
 
-Weather data from [OpenWeather](https://openweathermap.org/): Geocoding, Current Weather, 5 day / 3 hour Forecast and Air Pollution APIs, all on the free plan. (Version 1 used the One Call 2.5 API, which OpenWeather has retired.)
+- Weather data from [OpenWeather](https://openweathermap.org/): Geocoding, Current Weather, 5 day / 3 hour Forecast and Air Pollution APIs, all on the free plan. (Version 1 used the One Call 2.5 API, which OpenWeather has retired.)
+- UV index from the [Open-Meteo](https://open-meteo.com/) Forecast API (`current`, `hourly` and `daily` UV, no key, CORS-enabled), data licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and credited in the footer. Open-Meteo's free tier is for non-commercial use (no ads or subscriptions); if Clima ever goes commercial, use a paid Open-Meteo plan or switch to [currentuvindex.com](https://currentuvindex.com/api) (CC BY 4.0, commercial use allowed). If Open-Meteo is unreachable, the UV features simply hide.
+- Sun protection guidance follows [SunSmart](https://www.sunsmart.com.au/uv-sun-protection/uv/uv-index) (Cancer Council Australia): protection is recommended when the UV index is 3 or above.
 
 ## Credits
 
