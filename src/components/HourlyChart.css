@@ -1,0 +1,115 @@
+.hourly {
+  display: grid;
+  gap: 0.75rem;
+}
+.hourly-summary {
+  color: var(--muted);
+  max-inline-size: 72ch;
+}
+.hourly-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  border-radius: var(--radius-sm);
+}
+.hourly-figure {
+  margin: 0;
+  min-inline-size: 600px;
+}
+.hourly-svg {
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+}
+.hourly-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.hourly-dot {
+  fill: var(--surface-solid);
+  stroke: var(--text);
+  stroke-width: 2;
+}
+.hourly-temp {
+  fill: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  text-anchor: middle;
+  font-family: var(--font-mono);
+}
+.hourly-hour {
+  fill: var(--muted);
+  font-size: 13px;
+  text-anchor: middle;
+}
+.hourly-pop {
+  fill: color-mix(in oklch, var(--cool) 30%, transparent);
+}
+.hourly-pop-label {
+  fill: var(--cool);
+  font-size: 12px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hourly-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 1.2s var(--ease) 0.2s forwards;
+  }
+  .hourly-point {
+    animation: fade 0.4s var(--ease) both;
+    animation-delay: calc(0.2s + var(--i) * 70ms);
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+.hourly-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-block-start: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.legend-line,
+.legend-bar {
+  display: inline-block;
+  inline-size: 1.25rem;
+  block-size: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--cool), var(--warm));
+}
+.legend-bar {
+  block-size: 10px;
+  inline-size: 10px;
+  margin-inline-start: 1rem;
+  background: color-mix(in oklch, var(--cool) 30%, transparent);
+}
+.hourly-uv-label {
+  fill: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-anchor: middle;
+  font-family: var(--font-mono);
+}
+.uv-dot {
+  stroke: var(--surface-solid);
+  stroke-width: 1;
+}
+.legend-uv {
+  display: inline-block;
+  inline-size: 10px;
+  block-size: 10px;
+  margin-inline-start: 1rem;
+  border-radius: 50%;
+  background: conic-gradient(#3ea72d 0 25%, #f5d000 0 50%, #f18b00 0 75%, #e53210 0);
+}

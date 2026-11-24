@@ -1,0 +1,85 @@
+.daily {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+.daily-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.daily-row {
+  display: grid;
+  grid-template-columns: 3.5rem 2.25rem 3.75rem 2.25rem minmax(2rem, 1fr) 2.25rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding-block: 0.45rem;
+  border-block-end: 1px solid var(--line);
+}
+.daily-row:last-child {
+  border-block-end: 0;
+}
+.daily-day {
+  font-weight: 700;
+}
+.daily-meta {
+  display: grid;
+  gap: 0.1rem;
+}
+.daily-uv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
+.daily-uv .uv-swatch {
+  inline-size: 0.6rem;
+  block-size: 0.6rem;
+}
+.daily-pop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cool);
+}
+.daily-min {
+  color: var(--muted);
+  text-align: end;
+  font-family: var(--font-mono);
+}
+.daily-max {
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+.daily-bar {
+  position: relative;
+  block-size: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+.daily-bar-fill {
+  position: absolute;
+  inset-block: -1px;
+  inset-inline-start: var(--start);
+  inset-inline-end: calc(100% - var(--end));
+  min-inline-size: 6px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cool), var(--warm));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .daily-bar-fill {
+    animation: grow 0.8s var(--ease) both;
+    transform-origin: left;
+  }
+}
+@keyframes grow {
+  from {
+    scale: 0 1;
+  }
+}
