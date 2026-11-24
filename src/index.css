@@ -571,3 +571,48 @@ abbr[title] {
     display: none;
   }
 }
+
+/* WHO UV index colours, used only as swatches next to text labels */
+.uv-swatch {
+  display: inline-block;
+  inline-size: 0.8rem;
+  block-size: 0.8rem;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  flex: none;
+}
+[data-level='low'].uv-swatch,
+.uv-scale [data-level='low'] {
+  background: #3ea72d;
+}
+[data-level='moderate'].uv-swatch,
+.uv-scale [data-level='moderate'] {
+  background: #f5d000;
+}
+[data-level='high'].uv-swatch,
+.uv-scale [data-level='high'] {
+  background: #f18b00;
+}
+[data-level='very-high'].uv-swatch,
+.uv-scale [data-level='very-high'] {
+  background: #e53210;
+}
+[data-level='extreme'].uv-swatch,
+.uv-scale [data-level='extreme'] {
+  background: #b567a4;
+}
+.uv-dot[data-level='low'] {
+  fill: #3ea72d;
+}
+.uv-dot[data-level='moderate'] {
+  fill: #f5d000;
+}
+.uv-dot[data-level='high'] {
+  fill: #f18b00;
+}
+.uv-dot[data-level='very-high'] {
+  fill: #e53210;
+}
+.uv-dot[data-level='extreme'] {
+  fill: #b567a4;
+}

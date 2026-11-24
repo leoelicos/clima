@@ -94,3 +94,22 @@
   margin-inline-start: 1rem;
   background: color-mix(in oklch, var(--cool) 30%, transparent);
 }
+.hourly-uv-label {
+  fill: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-anchor: middle;
+  font-family: var(--font-mono);
+}
+.uv-dot {
+  stroke: var(--surface-solid);
+  stroke-width: 1;
+}
+.legend-uv {
+  display: inline-block;
+  inline-size: 10px;
+  block-size: 10px;
+  margin-inline-start: 1rem;
+  border-radius: 50%;
+  background: conic-gradient(#3ea72d 0 25%, #f5d000 0 50%, #f18b00 0 75%, #e53210 0);
+}

@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { aqiLabel } from '../lib/conditions'
 import { daylightProgress, formatDuration, formatTime } from '../lib/time'
 import { compass, compassSpoken, distance, pressure, wind } from '../lib/units'
+import { roundUv, uvBand, type UvLevel } from '../lib/uv'
 import type { Units, WeatherReport } from '../lib/types'
 import { Icon, type IconName } from './Icon'
 import './Highlights.css'
@@ -71,6 +72,42 @@ function SunArc({ progress }: { progress: number | null }) {
   )
 }
 
+const UV_LEVELS: { level: UvLevel; span: number }[] = [
+  { level: 'low', span: 3 },
+  { level: 'moderate', span: 3 },
+  { level: 'high', span: 2 },
+  { level: 'very-high', span: 3 },
+  { level: 'extreme', span: 1 },
+]
+
+/** WHO-coloured 0–11+ scale with a marker. Decorative; the value is in text. */
+function UvScale({ uvi }: { uvi: number }) {
+  const pos = Math.min(roundUv(uvi), 11.5) / 12
+  return (
+    <div className="uv-scale" aria-hidden="true">
+      <div className="uv-scale-track">
+        {UV_LEVELS.map((l) => (
+          <span key={l.level} data-level={l.level} style={{ flexGrow: l.span }} />
+        ))}
+      </div>
+      <span className="uv-scale-marker" style={{ insetInlineStart: `${pos * 100}%` }} />
+      <div className="uv-scale-ticks">
+        {[
+          ['0', 0],
+          ['3', 25],
+          ['6', 50],
+          ['8', 66.7],
+          ['11+', 100],
+        ].map(([label, at]) => (
+          <span key={label} style={{ '--at': `${at}%` } as CSSProperties}>
+            {label}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function Meter({ value, max, label }: { value: number; max: number; label: string }) {
   return <meter className="meter" min={0} max={max} value={value} aria-label={label} />
 }
@@ -124,6 +161,22 @@ export function Highlights({ report, units }: { report: WeatherReport; units: Un
             {progress !== null ? ` · ${Math.round(progress * 100)}% through the day` : ' · the sun has set'}
           </p>
         </Tile>
+
+        {report.uv ? (
+          <Tile title="UV index" icon="sun" className="tile-uv">
+            <p className="tile-value">
+              {roundUv(report.uv.now)} <span className="tile-unit">{uvBand(report.uv.now).label}</span>
+            </p>
+            <UvScale uvi={report.uv.now} />
+            <p className="tile-note">
+              {report.uv.todayPeak && report.uv.todayPeak.dt > current.dt
+                ? `Peaks at ${roundUv(report.uv.todayPeak.uvi)} around ${formatTime(report.uv.todayPeak.dt, timezone)}`
+                : report.uv.todayPeak
+                  ? `Today’s peak was ${roundUv(report.uv.todayPeak.uvi)} at ${formatTime(report.uv.todayPeak.dt, timezone)}`
+                  : 'No peak data for today'}
+            </p>
+          </Tile>
+        ) : null}
 
         <Tile title="Humidity" icon="droplet">
           <p className="tile-value">

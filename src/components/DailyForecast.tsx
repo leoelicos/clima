@@ -3,6 +3,7 @@ import { capitalise } from '../lib/conditions'
 import { formatWeekday, isToday } from '../lib/time'
 import { percent, temp, tempSpoken } from '../lib/units'
 import type { Daily, Units } from '../lib/types'
+import { roundUv, uvBand } from '../lib/uv'
 import { Icon } from './Icon'
 import { WeatherIcon } from './WeatherIcon'
 import './DailyForecast.css'
@@ -34,11 +35,20 @@ export function DailyForecast({ daily, timezone, units, now }: { daily: Daily[];
                 <WeatherIcon id={d.condition.id} size={36} />
                 <span className="sr-only">{capitalise(d.condition.description)},</span>
               </span>
-              <span className="daily-pop" data-visible={d.pop >= 0.1 || undefined}>
+              <span className="daily-meta">
                 {d.pop >= 0.1 ? (
-                  <>
+                  <span className="daily-pop">
                     <Icon name="droplet" size={14} /> {percent(d.pop)}%<span className="sr-only"> chance of rain,</span>
-                  </>
+                  </span>
+                ) : null}
+                {d.uvMax !== null ? (
+                  <span className="daily-uv">
+                    <span className="uv-swatch" data-level={uvBand(d.uvMax).level} aria-hidden="true" />
+                    <span aria-hidden="true">UV {roundUv(d.uvMax)}</span>
+                    <span className="sr-only">
+                      UV index up to {roundUv(d.uvMax)}, {uvBand(d.uvMax).label.toLowerCase()},
+                    </span>
+                  </span>
                 ) : null}
               </span>
               <span className="daily-min">

@@ -3,14 +3,15 @@ import { capitalise } from '../lib/conditions'
 import { describeHourly, smoothPath } from '../lib/chart'
 import { formatHour, formatTime } from '../lib/time'
 import { percent, precip, temp, tempUnit } from '../lib/units'
+import { roundUv, uvBand } from '../lib/uv'
 import type { Hourly, Units } from '../lib/types'
 import { Icon } from './Icon'
 import { WeatherIcon } from './WeatherIcon'
 import './HourlyChart.css'
 
 const W = 720
-const H = 240
-const PAD = { top: 64, right: 28, bottom: 62, left: 28 }
+const H = 264
+const PAD = { top: 64, right: 28, bottom: 86, left: 28 }
 
 export function HourlyChart({ hourly, timezone, units }: { hourly: Hourly[]; timezone: number; units: Units }) {
   const id = useId()
@@ -100,6 +101,14 @@ export function HourlyChart({ hourly, timezone, units }: { hourly: Hourly[]; tim
                       {percent(s.pop)}%
                     </text>
                   ) : null}
+                  {s.uvi !== null ? (
+                    <g className="hourly-uv">
+                      <circle cx={x(i) - 17} cy={H - 38} r="4" className="uv-dot" data-level={uvBand(s.uvi).level} />
+                      <text x={x(i) + 3} y={H - 34} className="hourly-uv-label">
+                        UV {roundUv(s.uvi)}
+                      </text>
+                    </g>
+                  ) : null}
                   <text x={x(i)} y={H - 10} className="hourly-hour">
                     {i === 0 ? 'Now' : formatHour(s.dt, timezone)}
                   </text>
@@ -109,6 +118,11 @@ export function HourlyChart({ hourly, timezone, units }: { hourly: Hourly[]; tim
             <figcaption className="hourly-legend" aria-hidden="true">
               <span className="legend-line" /> Temperature ({tempUnit(units)})
               <span className="legend-bar" /> Chance of rain
+              {steps.some((st) => st.uvi !== null) ? (
+                <>
+                  <span className="legend-uv" /> UV index
+                </>
+              ) : null}
             </figcaption>
           </figure>
         </div>
@@ -124,6 +138,7 @@ export function HourlyChart({ hourly, timezone, units }: { hourly: Hourly[]; tim
                 <th scope="col">Feels like</th>
                 <th scope="col">Chance of rain</th>
                 <th scope="col">Precipitation</th>
+                {steps.some((st) => st.uvi !== null) ? <th scope="col">UV index</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -139,6 +154,9 @@ export function HourlyChart({ hourly, timezone, units }: { hourly: Hourly[]; tim
                     <td>
                       {pr.value} {pr.unit}
                     </td>
+                    {steps.some((st) => st.uvi !== null) ? (
+                      <td>{s.uvi !== null ? `${roundUv(s.uvi)} (${uvBand(s.uvi).label})` : '—'}</td>
+                    ) : null}
                   </tr>
                 )
               })}

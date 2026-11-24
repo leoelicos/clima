@@ -2,6 +2,7 @@ import { capitalise, summarise } from '../lib/conditions'
 import { formatDate, formatOffset, formatTime } from '../lib/time'
 import { temp, tempSpoken, tempUnit, wind } from '../lib/units'
 import type { Units, WeatherReport } from '../lib/types'
+import { SunProtection } from './SunProtection'
 import { WeatherIcon } from './WeatherIcon'
 import './CurrentConditions.css'
 
@@ -67,6 +68,8 @@ export function CurrentConditions({ report, units }: { report: WeatherReport; un
           Wind {wind(current.windSpeed, units).value} {wind(current.windSpeed, units).unit}.
         </span>
       </p>
+
+      {report.uv ? <SunProtection uv={report.uv} now={current.dt} timezone={timezone} /> : null}
     </section>
   )
 }

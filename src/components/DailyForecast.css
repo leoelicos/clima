@@ -10,9 +10,9 @@
 }
 .daily-row {
   display: grid;
-  grid-template-columns: 3.75rem 2.5rem 3.5rem 2.5rem minmax(3rem, 1fr) 2.5rem;
+  grid-template-columns: 3.5rem 2.25rem 3.75rem 2.25rem minmax(2rem, 1fr) 2.25rem;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   padding-block: 0.45rem;
   border-block-end: 1px solid var(--line);
 }
@@ -21,6 +21,23 @@
 }
 .daily-day {
   font-weight: 700;
+}
+.daily-meta {
+  display: grid;
+  gap: 0.1rem;
+}
+.daily-uv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
+.daily-uv .uv-swatch {
+  inline-size: 0.6rem;
+  block-size: 0.6rem;
 }
 .daily-pop {
   display: inline-flex;

@@ -12,7 +12,15 @@ export function Footer({ onResetKey }: { onResetKey?: (() => void) | undefined }
           <a href="https://openweathermap.org/" target="_blank" rel="noreferrer">
             OpenWeather<span className="sr-only"> (opens in a new tab)</span>
           </a>
-          . Times shown in each place’s local time.
+          . UV index by{' '}
+          <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">
+            Open-Meteo.com<span className="sr-only"> (opens in a new tab)</span>
+          </a>{' '}
+          (
+          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">
+            CC BY 4.0<span className="sr-only"> licence (opens in a new tab)</span>
+          </a>
+          ). Times shown in each place’s local time.
         </p>
         <p className="footer-meta">
           {!online ? (
